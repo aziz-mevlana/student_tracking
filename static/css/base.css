@@ -1,0 +1,80 @@
+.logo-shadow {
+  filter: drop-shadow(0.5px 1px 0.5px #000000);
+}
+
+.myFooter {
+  padding: 10px 20px;
+  text-align: center;
+}
+
+.myNewsTitle {
+  color: rgb(255, 255, 255);
+  filter: drop-shadow(0.1px 0.1px 1.5px #000000);
+}
+
+.mySize {
+  height: 100vh;
+}
+
+:root {
+  --primary-color: #4060c0;
+  --secondary-color: #002040;
+  --background-dark: #000000;
+  --background-light: #e0e0e0;
+  --text-light: #ffffff;
+  --text-dark: #000000;
+  --nav: rgb(108 117 125);
+}
+
+body.dark-mode {
+  background-color: var(--background-dark);
+  color: var(--text-light);
+}
+
+body.light-mode {
+  background-color: var(--background-light);
+  color: var(--text-dark);
+}
+
+.navbar {
+  background-color: var(--nav);
+}
+
+.navbar-brand {
+  color: var(--text-light) !important;
+}
+
+.carousel-item img {
+  object-fit: cover;
+  height: 500px;
+}
+
+.card {
+  background-color: var(--background-light);
+  color: var(--text-dark);
+}
+
+.dark-mode .card {
+  background-color: var(--background-dark);
+  color: var(--text-light);
+}
+
+.card-title {
+  font-weight: bold;
+}
+
+.navbar-brand img {
+  width: 100px;
+  /* Logonun genişliğini ayarlayabilirsiniz */
+  height: auto;
+}
+
+.logo-shadow {
+  filter: drop-shadow(1px 1px 1px #000000);
+}
+
+.card-img-top {
+  width: 100%; /* Kart genişliğine uyum sağlar */
+  height: 200px; /* Sabit yükseklik */
+  object-fit: cover; /* Taşmayı önler, resmin ölçeklenmesini sağlar */
+}

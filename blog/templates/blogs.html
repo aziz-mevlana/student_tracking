@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block css_files %}
+<link rel="stylesheet" href="{% static 'news/css/news.css' %}">
+{% endblock %}
+
+{% block title %} Blogs {% endblock %}
+
+{% block content %}
+
+
+<div style="height: 100vh;">
+    {% include 'partials/_blog.html' %}
+</div>
+
+
+{% endblock %}
+{% block js_file %}
+<script src="{% static 'news/js/script.js' %}"></script>
+{% endblock %}

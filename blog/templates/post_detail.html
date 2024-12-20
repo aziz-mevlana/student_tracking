@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block css_files %}
+<link rel="stylesheet" href="{% static 'news/css/news.css' %}">
+{% endblock %}
+
+{% block title %} Home {% endblock %}
+
+{% block content %}
+
+<div style="min-height: 81vh;">
+    <header>
+        <h1>
+            {{ post.title }}
+        </h1>
+    </header>
+    
+    <div class="post-content">
+        <p>{{ post.content }}</p>
+    
+        <div class="comments-section">
+            <h2>Comments</h2>
+            {% for comment in comments %}
+                <div class="comment">
+                    <p><strong>{{ comment.name }}</strong> ({{ comment.email }})</p>
+                    <p>{{ comment.body }}</p>
+                    <p>Added on {{ comment.date_added }}</p>
+                </div>
+            {% endfor %}
+    
+            <h2>Add a comment</h2>
+            <form method="post">
+                {% csrf_token %}
+                {{ comment_form.as_p }}
+                <button type="submit">Add comment</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+{% block js_file %}
+<script src="{% static 'news/js/script.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,52 @@
+{% load static %}
+<nav class="navbar navbar-dark bg-primary navbar-expand-lg bg-secondary shadow-lg">
+    <div class="container ">
+        <img src="{% static 'img/bst-logo.png' %}" alt="Logo" width="7%" height="auto" class="d-inline-block align-text-top logo-shadow">
+        <a class="navbar-brand fs-3 fw-semibold" href="{% url 'home' %}">BST Akademi</a>
+        <ul class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar">
+            <span class="navbar-toggler-icon"></span>
+        </ul>
+        <div class="collapse navbar-collapse" id="navbar">
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item fw-normal fs-5 px-2">
+                    <a href="{% url 'news' %}" class="nav-link">Haberler</a>
+                </li>
+                <li class="nav-item fw-normal fs-5 px-2">   
+                    <a href="{% url 'graduates' %}" class="nav-link">Mezunlar</a>
+                </li>
+                <li class="nav-item fw-normal fs-5 px-2">   
+                    <a href="{% url 'c_index' %}" class="nav-link">Mesajlaşma</a>
+                </li>
+                <li class="nav-item fw-normal fs-5 px-2">   
+                    <a href="{% url 'post' %}" class="nav-link">Blog</a>
+                </li>
+                <li class="nav-item fw-normal fs-5 px-2">   
+                    <a href="{% url 'student_projects' %}" class="nav-link">Proje</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ms-auto">
+                {% if user.is_authenticated %}
+                    <li class="nav-item row">
+                        <a href="#" class="">
+                            <img src="{{ user.profile.image.url }}" width="55" class="float-end rounded-circle border border-primary border-4">
+                        </a>
+                    </li>
+                    <li class="nav-item">   
+                        <a href="" class="nav-link fs-5">Welcome, {{ user.first_name|title }}</a>
+                    </li>
+                    <li class="nav-item align-items-center">   
+                        <a href="{% url 'logout' %}" class="nav-link fs-5  align-items-center">Logout</a>
+                    </li>
+                {% else %}
+                    <li class="nav-item align-items-center align-items-center">
+                        <a href="{% url 'login' %}" class="nav-link fs-5 align-items-center">Login</a>
+                    </li>
+                    <li class="nav-item">   
+                        <a href="{% url 'register' %}" class="nav-link fs-5 align-items-center">Register</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- ======================================================================================================================================== -->

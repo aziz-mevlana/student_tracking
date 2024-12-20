@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %} Graduating Students {% endblock %}
+
+{% block content %}
+<div class="row my-3">
+    <div class="col-3">
+        {% include 'partials/_categories.html' %}
+    </div>
+    <div class="col-9">
+        <h2 class="myNewsTitle">Mezunlar</h2>
+            {% if graduates|length > 0 %}
+                {% for graduate in graduates %}
+                    {% include 'partials/_graduates_card.html' %}
+                {% endfor %}
+            {% else %}
+                <div class="alert alert-warning">No Graduates</div>
+            {% endif %}
+            
+    </div>
+</div>
+
+
+{% endblock %}

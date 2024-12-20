@@ -1,0 +1,20 @@
+{% load static %}
+<div class="card mb-3 shadow">
+    <div class="row">
+        <div class="col-md-3">
+            <img src="{{ graduate.img.url }}" alt="" class="img-fluid">
+        </div>
+        <div class="col-md-9">
+            <div class="card-body">
+                <h5 class="card-title">
+                    {% comment %} <a href="{% url 'graduate_name' %}"> {% endcomment %}
+                        {{ graduate.name }} {{ graduate.surname }}
+                    </a>
+                </h5>
+                <p class="card-text">
+                    {{ graduate.description }}
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block css_files %}
+<link rel="stylesheet" href="{% static 'news/css/news.css' %}">
+{% endblock %}
+
+{% block title %} Home {% endblock %}
+
+{% block content %}
+<div style="min-height: 81vh;">
+    <header>
+        <h1>Blog Home</h1>
+    </header>
+    
+    <div>
+        <a class="h1 m-4" style="text-decoration: none;" href="{% url 'post_new' %}">New Post</a>
+
+        <ul>
+            {% for post in posts %}
+            <div class="row ">
+                <div class="col-6">
+                    <li class="form-container form-control mt-3 shadow p-3">
+                        <a class="h4" style="text-decoration: none;" href="{% url 'post_detail' post.id %}">{{ post.title }}</a>
+                        <p>{{ post.date_posted }}</p>
+                        <a class="m-3" style="text-decoration: none;" href="{% url 'post_edit' post.id %}">Edit</a>
+                        <a style="text-decoration: none;" href="{% url 'post_delete' post.id %}">Delete</a>
+                    </li>
+                </div>
+            </div>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}
+{% block js_file %}
+<script src="{% static 'news/js/script.js' %}"></script>
+{% endblock %}
