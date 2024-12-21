@@ -19,8 +19,6 @@ body {
 .app {
   position: relative;
   overflow: hidden;
-  top: 19px;
-  height: calc(100% - 38px);
   margin: auto;
   padding: 0;
   box-shadow: 0 1px 1px 0 rgba(0, 0, 0, .06), 0 2px 5px 0 rgba(0, 0, 0, .2);
@@ -470,7 +468,7 @@ body {
   }
   .heading {
     height: 70px;
-    background-color: #009688;
+
   }
   .fa-2x {
     font-size: 2.3em !important;

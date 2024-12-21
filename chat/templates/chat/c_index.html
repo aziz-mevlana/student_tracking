@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <!--  This file has been downloaded from bootdey.com    @bootdey on twitter -->
     <!--  All snippets are MIT license http://bootdey.com/license -->
-    <title>Whatsapp web chat template - Bootdey.com</title>
+    <title>Web Chat</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'chat/css/style.css' %}">
@@ -36,7 +36,7 @@
                     </div>
                     <div class="col-sm-9 col-xs-9 sideBar-main">
                         <div class="row">
-                            <a href="{% url "start_chat" user %}">
+                            <a href="{% url 'start_chat' user %}">
                                 <div class="col-sm-8 col-xs-8 sideBar-name">
                                     <span class="name-meta">{{ user.profile.first_name }}
                                     </span>
