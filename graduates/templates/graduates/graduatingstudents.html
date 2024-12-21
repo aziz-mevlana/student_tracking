@@ -3,22 +3,25 @@
 {% block title %} Graduating Students {% endblock %}
 
 {% block content %}
-<div class="row my-3">
+<div class="row my-5 mx-3">
+    <!-- Kategoriler (Sol Taraf) -->
     <div class="col-3">
         {% include 'partials/_categories.html' %}
     </div>
+    
+    <!-- Mezunlar (Sağ Taraf) -->
     <div class="col-9">
-        <h2 class="myNewsTitle">Mezunlar</h2>
-            {% if graduates|length > 0 %}
+        {% if graduates|length > 0 %}
+            <!-- Mezunlar Listesi -->
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
                 {% for graduate in graduates %}
                     {% include 'partials/_graduates_card.html' %}
                 {% endfor %}
-            {% else %}
-                <div class="alert alert-warning">No Graduates</div>
-            {% endif %}
-            
+            </div>
+        {% else %}
+            <!-- Mezun Yok Mesajı -->
+            <div class="alert alert-warning">No Graduates</div>
+        {% endif %}
     </div>
 </div>
-
-
 {% endblock %}
