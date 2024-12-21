@@ -1,0 +1,14 @@
+{% load static %}
+<div class="col-md-4">
+    <div class="card shadow">
+        <img src="{{ new.img.url }}" class="card-img-top" alt="...">
+        <div class="card-body">
+            <h5 class="card-title"><a href="{% url 'news_details' new.slug %}" class="text-decoration-none">
+                {{ new.title }}
+            </a></h5>
+            <p class="card-text">{{ new.description|striptags|slice:"0:150" }}</p>
+        </div>
+    </div>
+</div>
+
+

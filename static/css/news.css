@@ -6,7 +6,7 @@
 
 .card {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    border-radius: 15px;
+    border-radius: 8px;
     height: 100%;
     /* Kart yüksekliğini sabitle */
     display: flex;
@@ -22,8 +22,8 @@
     /* Görselin genişliğini karta uydur */
     object-fit: cover;
     /* Taşan alanları kırp */
-    border-top-left-radius: 15px;
-    border-top-right-radius: 15px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
 }
 
 .card-body {

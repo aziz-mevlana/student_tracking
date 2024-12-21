@@ -9,6 +9,7 @@ class News(models.Model):
     is_active = models.BooleanField(default=False)
     is_home = models.BooleanField(default=False)
     slug = models.SlugField(null=False, blank=True, unique=True, db_index=True)
+    published_date = models.DateTimeField(auto_now_add=True) #null #!false olmamali
     
     def __str__(self):
         return f"{self.title}" #objeyi title ile adlandirir

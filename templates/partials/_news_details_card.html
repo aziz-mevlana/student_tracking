@@ -3,22 +3,22 @@
     <!-- Fotoğraf -->
     <div class="row">
         <div class="col-12">
-            <img src="{{ new.img.url }}" alt="Haber Görseli" class="img-fluid w-100 rounded shadow" style="max-height: 400px; object-fit: cover;">
+            <img src="{{ new.img.url }}" alt="Haber Görseli" class="img-fluid w-100 rounded shadow-sm" style="max-height: 400px; object-fit: cover;">
         </div>
     </div>
     
     <!-- Haber Başlığı -->
     <div class="row mt-4">
         <div class="col-12 text-center">
-            <h1 class="fw-bold text-primary">{{ new.title }}</h1>
-            <p class="text-muted">Yayınlanma Tarihi: {{ new.publish_date }}</p>
+            <h1 class="fw-bold" style="color: #2c3e50;">{{ new.title }}</h1>
+            <p class="text-muted">Yayınlanma Tarihi: {{ new.published_date }}</p>
         </div>
     </div>
     
     <!-- Haber İçeriği -->
     <div class="row mt-3">
         <div class="col-12">
-            <p class="fs-5 text-justify">
+            <p class="fs-5" style="text-align: justify; color: #34495e;">
                 {{ new.description|safe }}
             </p>
         </div>
@@ -27,18 +27,18 @@
     <!-- Diğer Haberler -->
     <div class="row mt-5">
         <div class="col-12">
-            <h3 class="fw-bold text-secondary">Diğer Haberler</h3>
+            <h3 class="fw-bold mb-4" style="color: #2980b9;">Diğer Haberler</h3>
             <div class="row g-4">
                 {% for related_new in related_news %}
                 <div class="col-12 col-md-6 col-lg-4">
-                    <div class="card shadow-sm border-0">
-                        <img src="{{ related_new.img.url }}" class="card-img-top" alt="{{ related_new.title }}" style="height: 200px; object-fit: cover;">
+                    <div class="card border-0 shadow-sm h-100">
+                        <img src="{{ related_new.img.url }}" class="card-img-top rounded-top" alt="{{ related_new.title }}" style="height: 200px; object-fit: cover;">
                         <div class="card-body">
-                            <h5 class="card-title fw-bold">{{ related_new.title }}</h5>
+                            <h5 class="card-title fw-bold" style="color: #2c3e50;">{{ related_new.title }}</h5>
                             <p class="card-text text-muted">
                                 {{ related_new.description|truncatewords:20 }}
                             </p>
-                            <a href="{{ related_new.get_absolute_url }}" class="btn btn-outline-primary btn-sm">Haberin Detayları</a>
+                            <a href="{{ related_new.get_absolute_url }}" class="btn btn-primary btn-sm w-100">Haberin Detayları</a>
                         </div>
                     </div>
                 </div>

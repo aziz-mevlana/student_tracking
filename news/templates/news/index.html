@@ -15,7 +15,7 @@
     <div class="row g-4">
         {% for new in news %}
             {% if new.is_home and new.is_active %}
-                {% include 'partials/_card.html' %}
+                {% include 'partials/_home_news_card.html' %}
             {% endif %}
         {% endfor %}
     </div>

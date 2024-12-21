@@ -4,15 +4,12 @@
 
 {% block content %}
 
-<h2 class="myNewsTitle my-4 text-center">Haberler</h2>
-<hr>
-<div class="container">
-    <div class="row gy-4">
+
+<div class="container my-5">
+    <div class="row g-4">
         {% for new in news %}
-            {% if new.is_active %}
-                <div class="col-12 col-md-6 col-lg-4">
-                    {% include 'partials/_card.html' %}
-                </div>
+            {% if new.is_home and new.is_active %}
+                {% include 'partials/_news_card.html' %}
             {% endif %}
         {% endfor %}
     </div>
