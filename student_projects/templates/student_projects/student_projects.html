@@ -10,16 +10,28 @@
 {% block content %}
 
 
-<div style="height: 100vh;">
-    <div class="row justify-content-center align-items-center g-2">
-        <div class="col-8 mt-3 shadow p-3 border rounded-4" style="height: 60vh;">
-            <h1 class="title">Projeler</h1>
-        </div>
-        {% include 'partials/_projects.html' %}
+<div class="container" style="margin-top: 100px; margin-bottom: 100px; height: 65vh;">
+    <h1 class="my-4">Active Projects</h1>
+    <div class="row">
+        {% for project in projects %}
+            <div class="col-md-4">
+                {% include 'partials/_projects.html' %}
+            </div>
+        {% endfor %}
     </div>
 </div>
 
-    {% endblock %}
-    {% block js_file %}
-    <script src="{% static 'news/js/script.js' %}"></script>
-    {% endblock %}
+{% if success %}
+<script>
+    // Close the modal
+    document.getElementById('myModal').style.display = 'none';
+</script>
+{% endif %}
+
+{% endblock %}
+{% block js_file %}
+<script src="{% static 'news/js/script.js' %}"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+{% endblock %}
