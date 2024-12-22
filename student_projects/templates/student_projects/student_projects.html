@@ -11,11 +11,15 @@
 
 
 <div style="height: 100vh;">
-    {% include 'partials/_forms.html' %}
+    <div class="row justify-content-center align-items-center g-2">
+        <div class="col-8 mt-3 shadow p-3 border rounded-4" style="height: 60vh;">
+            <h1 class="title">Projeler</h1>
+        </div>
+        {% include 'partials/_projects.html' %}
+    </div>
 </div>
 
-
-{% endblock %}
-{% block js_file %}
-<script src="{% static 'news/js/script.js' %}"></script>
-{% endblock %}
+    {% endblock %}
+    {% block js_file %}
+    <script src="{% static 'news/js/script.js' %}"></script>
+    {% endblock %}
