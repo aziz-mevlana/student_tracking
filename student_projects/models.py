@@ -7,7 +7,6 @@ class ProjectRequest(models.Model):
         (2, 'Class 2'),
         (3, 'Class 3'),
         (4, 'Class 4'),
-        (5, 'Class 5'),
     ]
 
     title = models.CharField(max_length=200)
