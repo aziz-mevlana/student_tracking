@@ -1,0 +1,36 @@
+<div class="card mb-3" data-toggle="modal" data-target="#pendingProjectModal{{ submission.id }}">
+    <div class="card-body">
+        <h5 class="card-title">{{ submission.project_request }}</h5>
+        <p class="card-text">{{ submission.description }}</p>
+        <p class="card-text"><small class="text-muted">Gönderilme: {{ submission.submitted_at }}</small></p>
+        {% if submission.is_approved %}
+            <p class="card-text text-success"><strong>Durum: Onaylandı</strong></p>
+        {% else %}
+            <p class="card-text text-warning"><strong>Durum: Onay Bekliyor</strong></p>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="pendingProjectModal{{ submission.id }}" tabindex="-1" role="dialog" aria-labelledby="pendingProjectModalLabel{{ project.id }}" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="pendingProjectModalLabel{{ submission.id }}">{{ submission.submission_title }} - Pending Approval</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p><strong>Başlık:</strong> {{ submission.submission_title }}</p>
+                <p><strong>Açıklama:</strong> {{ submission.submission_title }}</p>
+                <p><strong>Gönderme zamanı:</strong> {{ submission.submitted_at }}</p>
+                {% if submission.is_approved %}
+                    <p><strong>Durum:</strong> Onaylandı</p>
+                {% else %}
+                    <p><strong>Durum:</strong> Onay Bekliyor</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>

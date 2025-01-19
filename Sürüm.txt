@@ -1,0 +1,3 @@
+v0.72
+    -Proje sayfası güncellemesi.
+    -Onaylanan projeleri gösterme.
