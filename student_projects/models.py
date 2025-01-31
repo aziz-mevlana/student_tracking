@@ -20,12 +20,24 @@ class ProjectRequest(models.Model):
         return self.title
 
 class StudentSubmission(models.Model):
+    APPROVED_CHOICES = [
+        (0, 'Waiting for Approval'),
+        (1, 'Approved'),
+        (2, 'Not Approved'),
+        
+    ]
     project_request = models.ForeignKey(ProjectRequest, on_delete=models.CASCADE, related_name='submissions')
     student = models.ForeignKey(User, on_delete=models.CASCADE, related_name='submissions')
     submission_title = models.CharField(max_length=200, null=True)
     submission_description = models.TextField(null=True)
     submitted_at = models.DateTimeField(auto_now_add=True)
-    is_approved = models.BooleanField(default=False)
+    is_approved = models.IntegerField(choices=APPROVED_CHOICES, default=0)
 
+    def save(self, *args, **kwargs):
+        if self.is_approved == 1:
+            # Öğrencinin diğer gönderimlerini reddet
+            StudentSubmission.objects.filter(student=self.student, project_request=self.project_request).exclude(pk=self.pk).update(is_approved=2)
+        super(StudentSubmission, self).save(*args, **kwargs)
+    
     def __str__(self):
         return f"Submission by {self.student.username} for {self.project_request.title}"

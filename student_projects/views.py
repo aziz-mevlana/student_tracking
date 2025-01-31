@@ -9,7 +9,7 @@ def student_projects(request):
     projects = ProjectRequest.objects.filter(projects_class=request.user.profile.student_class)
     submission_message = request.session.pop('submission_message', None) # mesajı session'dan al ve sil
     submissions = StudentSubmission.objects.filter(student=request.user)
-    approved_submissions = [submission for submission in submissions if submission.is_approved]  # Onaylı projeleri filtrele.
+    approved_submissions = [submission for submission in submissions if submission.is_approved == 1]  # Onaylı projeleri filtrele.
     return render(request, 'student_projects/student_projects.html', {'projects': projects, 
                                                                       'submission_message': submission_message, 
                                                                       'submissions': submissions,

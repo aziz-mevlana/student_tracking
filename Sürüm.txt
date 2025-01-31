@@ -1,3 +1,7 @@
 v0.72
     -Proje sayfası güncellemesi.
     -Onaylanan projeleri gösterme.
+
+
+v0.73
+    -Proje sayfası görsel güncelleme
