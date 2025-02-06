@@ -4,4 +4,9 @@ v0.72
 
 
 v0.73
-    -Proje sayfası görsel güncelleme
+    -Proje sayfası görsel güncelleme.
+
+
+v0.74
+    -Profil sayfası işlevsel hale getirildi.
+    -Kullanıcı adı, fotoğraf değiştirme eklendi.

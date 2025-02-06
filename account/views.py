@@ -97,3 +97,33 @@ def logout_request(request):
 
 def profile_request(request):
     return render(request, "account/profile.html")
+
+@login_required
+def save_profile(request):
+    if request.method == 'POST':
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
+        student_class = request.POST.get('student_class')
+
+        profile = Profile.objects.get(user=request.user)
+        profile.first_name = first_name
+        profile.last_name = last_name
+        profile.student_class = student_class
+        profile.save()
+
+        return redirect('profile')  # Profil sayfasına yönlendirin
+
+    return render(request, 'account/profile.html')
+
+@login_required
+def change_profile_image(request):
+    if request.method == "POST":
+        profile_image = request.FILES.get('profile_image')
+        
+        profile = Profile.objects.get(user=request.user)
+        profile.image = profile_image
+        profile.save()
+        
+        return redirect('profile')
+    
+    return render(request, 'account/profile.html')

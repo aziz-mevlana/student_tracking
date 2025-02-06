@@ -4,10 +4,10 @@ import random
 
 class Profile(models.Model):
     CLASS_CHOICES = [
-        (1, 'Class 1'),
-        (2, 'Class 2'),
-        (3, 'Class 3'),
-        (4, 'Class 4'),
+        (1, '1'),
+        (2, '2'),
+        (3, '3'),
+        (4, '4'),
     ]
     
     user = models.OneToOneField(User, on_delete=models.CASCADE)

@@ -8,4 +8,6 @@ urlpatterns = [
     path('verify-account/', views.verify_account, name='verify_account'),
     path("logout", views.logout_request, name="logout"),
     path("profile", views.profile_request, name="profile" ),
+    path('save_profile/', views.save_profile, name='save_profile'),
+    path('change_profile_image/', views.change_profile_image, name='change_profile_image'),
 ]
