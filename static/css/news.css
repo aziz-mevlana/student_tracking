@@ -4,6 +4,19 @@
     color: #4060c0;
 }
 
+.category-menu.fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 15.4%;
+    z-index: 1; /* Ensure category menu is below the footer */
+}
+
+footer.z-index-2 {
+    position: relative; /* Set position to relative to make z-index effective */
+    z-index: 2; /* Increase z-index to ensure footer is above category menu */
+}
+
 .card {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     border-radius: 8px;

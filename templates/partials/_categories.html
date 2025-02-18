@@ -1,5 +1,5 @@
 {% load static %}
-<div class="list-group" style=" border-radius: 0px; background-color: #ffff; height: 82vh;">
+<div class="list-group" style=" border-radius: 0px; background-color: #ffff; min-height: 100vh;">
     {% for category in categories %}
         {% if category.slug == selected_category %}
             <a class="list-group-item list-group-item-action active " href="{% url 'graduates_by_category' category.slug %}">{{ category.name }}</a>

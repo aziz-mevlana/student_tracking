@@ -10,3 +10,20 @@ v0.73
 v0.74
     -Profil sayfası işlevsel hale getirildi.
     -Kullanıcı adı, fotoğraf değiştirme eklendi.
+
+v0.75
+    -Proje sekmesini model yapısından sayfa yapısına çevirme.
+    -Proje sayfası moduler hale getirilicek.
+    -Proje girişleri görsel güncelleme.
+    
+
+
+
+Gelecek güncellemelerde yapılıcaklar.
+    -Student submissions feedback ekleme hoca tarafından.
+    -Dersi alan öğrencilere göre proje gösterme.
+    -Dosyaların düzenini elden geçirme(ACİL!!!!!).
+
+Tercihen yapılabilecekler.
+    -Proje gönderme sekmesi tek tek proje gönderir ve cevaplarınıda ayrı alır.
+    

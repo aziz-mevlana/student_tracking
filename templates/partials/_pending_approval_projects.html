@@ -1,135 +1,16 @@
-<div class="card mb-3" data-toggle="modal" data-target="#pendingProjectModal{{ submission.id }}">
-    <div class="card-body">
-        <h5 class="card-title">{{ submission.project_request }}</h5>
-        <p class="card-text">{{ submission.description }}</p>
-        <p class="card-text"><small class="text-muted">Gönderilme: {{ submission.submitted_at }}</small></p>
-        {% if submission.is_approved == 1 %}
-            <p class="card-text text-success"><strong>Durum: Onaylandı</strong></p>
-        {% elif submission.is_approved == 0 %}
-            <p class="card-text text-warning"><strong>Durum: Beklemede</strong></p>
-        {% else %}
-            <p class="card-text text-danger"><strong>Durum: Kabul Edilmedi</strong></p>
-        {% endif %}
-    </div>
-</div>
-
-<!-- Card Click Modal -->
-<div class="modal fade" id="pendingProjectModal{{ submission.id }}" tabindex="-1" role="dialog" aria-labelledby="pendingProjectModalLabel{{ submission.id }}" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="pendingProjectModalLabel{{ submission.id }}">{{ submission.submission_title }} - Pending Approval</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p><strong>Başlık:</strong> {{ submission.submission_title }}</p>
-                <p><strong>Açıklama:</strong> {{ submission.submission_description }}</p>
-                <p><strong>Gönderme zamanı:</strong> {{ submission.submitted_at }}</p>
-                {% if submission.is_approved == 1 %}
-                    <p><strong>Durum:</strong> Onaylandı</p>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#projectPanelModal{{ submission.id }}">Yükle</button>
-                {% elif submission.is_approved == 0 %}
-                    <p><strong>Durum:</strong> Beklemede</p>
-                {% else %}
-                    <p><strong>Durum:</strong> Kabul Edilmedi</p>
-                {% endif %}
-            </div>
+<a href="?category={{ submission.id }}" class="text-decoration-none text-dark">
+    <div class="card mb-3">
+        <div class="card-body">
+            <h5 class="card-title">{{ submission.project_request }}</h5>
+            <p class="card-text">{{ submission.description }}</p>
+            <p class="card-text"><small class="text-muted">Gönderilme: {{ submission.submitted_at }}</small></p>
+            {% if submission.is_approved == 1 %}
+                <p class="card-text text-success"><strong>Durum: Onaylandı</strong></p>
+            {% elif submission.is_approved == 0 %}
+                <p class="card-text text-warning"><strong>Durum: Beklemede</strong></p>
+            {% else %}
+                <p class="card-text text-danger"><strong>Durum: Kabul Edilmedi</strong></p>
+            {% endif %}
         </div>
     </div>
-</div>
-
-<!-- Proje Tracking Modal -->
-<div class="modal fade" id="projectPanelModal{{ submission.id }}" tabindex="-1" role="dialog" aria-labelledby="projectPanelModalLabel{{ submission.id }}" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="projectPanelModalLabel{{ submission.id }}">Proje Paneli</h5>
-                
-            </div>
-            <div class="modal-body">
-                <form method="post" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    <div class="form-group">
-                        <label for="projectTitle">Başlık</label>
-                        <input type="text" class="form-control" id="projectTitle" name="projectTitle" value="{{ submission.submission_title }}" readonly>
-                    </div>
-                    <div class="form-group">
-                        <label for="projectDescription">Açıklama</label>
-                        <textarea class="form-control" id="projectDescription" name="projectDescription" rows="3" readonly>{{ submission.submission_description }}</textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="week1Title">1. Hafta Başlık</label>
-                        <input type="text" class="form-control" id="week1Title" name="week1Title">
-                    </div>
-                    <div class="form-group">
-                        <label for="week1">1. Hafta</label>
-                        <input type="file" class="form-control-file" id="week1" name="week1">
-                    </div>
-                    <div class="form-group">
-                        <label for="week2Title">2. Hafta Başlık</label>
-                        <input type="text" class="form-control" id="week2Title" name="week2Title">
-                    </div>
-                    <div class="form-group">
-                        <label for="week2">2. Hafta</label>
-                        <input type="file" class="form-control-file" id="week2" name="week2">
-                    </div>
-                    <div class="form-group">
-                        <label for="week3Title">3. Hafta Başlık</label>
-                        <input type="text" class="form-control" id="week3Title" name="week3Title">
-                    </div>
-                    <div class="form-group">
-                        <label for="week3">3. Hafta</label>
-                        <input type="file" class="form-control-file" id="week3" name="week3">
-                    </div>
-                    <div class="form-group">
-                        <label for="week4Title">4. Hafta Başlık</label>
-                        <input type="text" class="form-control" id="week4Title" name="week4Title">
-                    </div>
-                    <div class="form-group">
-                        <label for="week4">4. Hafta</label>
-                        <input type="file" class="form-control-file" id="week4" name="week4">
-                    </div>
-                    <div class="form-group">
-                        <label for="week5Title">5. Hafta Başlık</label>
-                        <input type="text" class="form-control" id="week5Title" name="week5Title">
-                    </div>
-                    <div class="form-group">
-                        <label for="week5">5. Hafta</label>
-                        <input type="file" class="form-control-file" id="week5" name="week5">
-                    </div>
-                    <div class="form-group">
-                        <label for="week6Title">6. Hafta Başlık</label>
-                        <input type="text" class="form-control" id="week6Title" name="week6Title">
-                    </div>
-                    <div class="form-group">
-                        <label for="week6">6. Hafta</label>
-                        <input type="file" class="form-control-file" id="week6" name="week6">
-                    </div>
-                    <div class="form-group">
-                        <label for="week7Title">7. Hafta Başlık</label>
-                        <input type="text" class="form-control" id="week7Title" name="week7Title">
-                    </div>
-                    <div class="form-group">
-                        <label for="week7">7. Hafta</label>
-                        <input type="file" class="form-control-file" id="week7" name="week7">
-                    </div>
-                    <div class="form-group">
-                        <label for="week8Title">8. Hafta Başlık</label>
-                        <input type="text" class="form-control" id="week8Title" name="week8Title">
-                    </div>
-                    <div class="form-group">
-                        <label for="week8">8. Hafta</label>
-                        <input type="file" class="form-control-file" id="week8" name="week8">
-                    </div>
-                    <div class="form-group">
-                        <label for="feedback">Hocadan Geri Dönüş</label>
-                        <textarea class="form-control" id="feedback" name="feedback" rows="3"></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Gönder</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
+</a>

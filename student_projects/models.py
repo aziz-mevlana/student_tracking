@@ -8,7 +8,7 @@ class ProjectRequest(models.Model):
         (3, 'Class 3'),
         (4, 'Class 4'),
     ]
-
+    img = models.ImageField(default='default_project.jpg', upload_to='project_images/', null=True, blank=True)
     title = models.CharField(max_length=200)
     description = models.TextField()
     deadline = models.DateTimeField()

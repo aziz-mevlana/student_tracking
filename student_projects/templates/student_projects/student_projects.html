@@ -19,52 +19,19 @@
         <!-- Katagori kodalri -->
         {% include 'partials/_proje_categories.html' %}
     </div>
-    <div class="col-10 my-4 ">
-        <!-- Onaylanan Projeler (Sağ Taraf) -->
-        {% if approved_submissions %}
-            <div class="row">
-                <h1>Onaylanan Projeler</h1>
-                {% for submission in approved_submissions %}
-                    <div class="col-md-2 mb-2">
-                        {% include 'partials/_pending_approval_projects.html' %}
-                    </div>  
-                {% endfor %}
-            </div>
+    <div class="col-10 my-4" style="min-height: 100vh;">
+        <!-- (Sağ Taraf) -->
+        {% if selected_project %}
+            {% include 'partials/_project_detail.html' %}
+        {% elif selected_submission %}
+            {% include 'partials/_submission_detail.html' %}
+        {% else %}
+            {% include 'partials/_student_project_home.html' %}
         {% endif %}
-
-        <!-- Projeler (Sağ Taraf) -->
-        <div class="row">
-            <h1>Projeler</h1>
-            {% if projects|length > 0 %}
-                {% for project in projects %}
-                <div class="col-md-3 mb-3 ">
-                    {% include 'partials/_projects.html' %}
-                </div>
-                {% endfor %}
-            {% else %}
-                <div class="alert alert-warning">Aktif Proje Yok</div>
-            {% endif %}
-        </div>
-    <!-- Gonderilmis projeler (Sağ Taraf) -->
-        <div class="row">
-            {% if submissions %}
-                <h1>İşlemler</h1>
-                {% for submission in submissions %}
-                    <div class="col-md-2 mb-2">
-                        {% include 'partials/_pending_approval_projects.html' %}
-                    </div>
-                {% endfor %}
-            {% endif %}
-        </div>
+        
     </div>
-</div>
 
-{% if success %}
-<script>
-    // Close the modal
-    document.getElementById('myModal').style.display = 'none';
-</script>
-{% endif %}
+</div>
 
 {% endblock %}
 {% block js_file %}

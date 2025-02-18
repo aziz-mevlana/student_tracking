@@ -1,13 +1,42 @@
 {% load static %}
-<div class="list-group" style=" border-radius: 0px; background-color: #ffff; height: 82vh;">
+<div class="list-group category-menu z-index-1" style="border-radius: 0px; background-color: #ffff; height: 100vh;">
+    <a href="{% url 'student_projects' %}" class="list-group-item list-group-item-action"  style="background-color: #adb5bd;" data-bs-target="#projectPanelModal{{ submission.id }}">
+        <div class="d-flex w-100 justify-content-between">
+            <h4 class="mb-1">Projeler</h4>
+        </div>
+    </a>
+    {% for project in projects %}
+    <a href="?category={{ project.id }}" class="list-group-item list-group-item-action {% if selected_category == project.id|stringformat:'s' %}active{% endif %}">
+        <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">{{ project.title }}</h5>
+            <small>{{ project.deadline }}</small>
+        </div>
+    </a>
+    {% endfor %}
+    <a href="#" class="list-group-item list-group-item-action" style="background-color: #adb5bd;" data-bs-target="#projectPanelModal{{ submission.id }}">
+        <div class="d-flex w-100 justify-content-between">
+            <h4 class="mb-1">Devam Eden Projeler</h4>
+        </div>
+    </a>
     {% if approved_submissions %}
-        {% for submission in approved_submissions %}
-            <a href="#" class="list-group-item list-group-item-action" data-bs-toggle="modal" data-bs-target="#projectPanelModal{{ submission.id }}">
-                <div class="d-flex w-100 justify-content-between">
-                    <h5 class="mb-1">{{ submission.submission_title }}</h5>
-                    <small>{{ submission.project_request }}</small>
-                </div>
-            </a>
-        {% endfor %}
-    {% endif %}  
+    {% for submission in approved_submissions %}
+    <a href="?category={{ submission.id }}" class="list-group-item list-group-item-action {% if selected_category == submission.id|stringformat:'s' %}active{% endif %}">
+        <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">{{ submission.submission_title }}</h5>
+            <small>{{ submission.project_request }}</small>
+        </div>
+    </a>
+    {% endfor %}
+    {% endif %}
 </div>
+<script>
+const categoryMenu = document.querySelector('.category-menu');
+
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 100) {
+    categoryMenu.classList.add('fixed');
+  } else {
+    categoryMenu.classList.remove('fixed');
+  }
+});
+</script>
