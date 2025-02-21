@@ -16,6 +16,9 @@ v0.75
     -Proje sayfası moduler hale getirilicek.
     -Proje girişleri görsel güncelleme.
     
+v0.76
+    -Proje yükleme sayfası görsel güncelleme yapıldı.
+    -Proje işlem paneli düzenlemesi.
 
 
 
@@ -23,6 +26,7 @@ Gelecek güncellemelerde yapılıcaklar.
     -Student submissions feedback ekleme hoca tarafından.
     -Dersi alan öğrencilere göre proje gösterme.
     -Dosyaların düzenini elden geçirme(ACİL!!!!!).
+    -Succes mesajlarını widget haline getir.
 
 Tercihen yapılabilecekler.
     -Proje gönderme sekmesi tek tek proje gönderir ve cevaplarınıda ayrı alır.

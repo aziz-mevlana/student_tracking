@@ -4,6 +4,7 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 from django.urls import reverse
 from django.contrib import messages  # mesajlar için import ekleyin
+from datetime import timedelta, datetime
 
 def submission_detail(request, submission_id):
     submission = get_object_or_404(StudentSubmission, pk=submission_id)
@@ -22,10 +23,11 @@ def project_detail(request, project_id):
 def student_projects(request):
     selected_category = request.GET.get('category', None)
     projects = ProjectRequest.objects.filter(projects_class=request.user.profile.student_class)
-    submission_message = request.session.pop('submission_message', None) # mesajı session'dan al ve sil
+    submission_message = request.session.pop('submission_message', None)  # mesajı session'dan al ve sil
     submissions = StudentSubmission.objects.filter(student=request.user)
     approved_submissions = [submission for submission in submissions if submission.is_approved == 1]  # Onaylı projeleri filtrele.
-
+    current_time = timezone.now()
+    
     context = {
         'projects': projects,
         'submission_message': submission_message,
@@ -40,9 +42,16 @@ def student_projects(request):
             context['selected_project'] = selected_project
         except ProjectRequest.DoesNotExist:
             selected_submission = get_object_or_404(StudentSubmission, pk=selected_category)
+            submission_created_at = selected_submission.project_request.submission_start
+            week_ago = (current_time - submission_created_at).days // 7 + 1
+            weeks = [week + 1 for week in range(week_ago)]
             context['selected_submission'] = selected_submission
-
+            context['weeks'] = weeks
+            context['week_ago'] = week_ago
     return render(request, 'student_projects/student_projects.html', context)
+
+
+
 
 def active_projects(request):
     current_time = timezone.now()
@@ -60,24 +69,6 @@ def submit_project(request, project_id):
             student=student,
             submission_title=submission_title_1,
             submission_description=submission_description_1,
-            submitted_at=timezone.now()
-        )
-        submission_title_2 = request.POST['title_2']
-        submission_description_2 = request.POST['description_2']
-        StudentSubmission.objects.create(
-            project_request=project,
-            student=student,
-            submission_title=submission_title_2,
-            submission_description=submission_description_2,
-            submitted_at=timezone.now()
-        )
-        submission_title_3 = request.POST['title_3']
-        submission_description_3 = request.POST['description_3']
-        StudentSubmission.objects.create(
-            project_request=project,
-            student=student,
-            submission_title=submission_title_3,
-            submission_description=submission_description_3,
             submitted_at=timezone.now()
         )
         request.session['submission_message'] = 'Form başarıyla gönderildi!'
