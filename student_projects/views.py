@@ -3,8 +3,6 @@ from .models import ProjectRequest, StudentSubmission
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django.urls import reverse
-from django.contrib import messages  # mesajlar için import ekleyin
-from datetime import timedelta, datetime
 
 def submission_detail(request, submission_id):
     submission = get_object_or_404(StudentSubmission, pk=submission_id)

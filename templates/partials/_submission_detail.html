@@ -20,25 +20,13 @@
 
         <h2>Proje Paneli</h2>
         <form method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-            <div class="form-group">
-                <label for="projectTitle">Başlık</label>
-                <input type="text" class="form-control" id="projectTitle" name="projectTitle" value="{{ selected_submission.submission_title }}" readonly>
-            </div>
-            <div class="form-group">
-                <label for="projectDescription">Açıklama</label>
-                <textarea class="form-control" id="projectDescription" name="projectDescription" rows="3" readonly>{{ selected_submission.submission_description }}</textarea>
-            </div>
-            
-            <div class="container mt-3">
-  <h2>Table Head Colors</h2>
-  <p>You can use any of the contextual classes to only add a color to the table header:</p>
+            {% csrf_token %}      
   <table class="table">
     <thead class="table-dark">
       <tr>
         <th>Hafta</th>
         <th>Gönderim tarihi</th>
-        <th>+</th>
+        <th>Yükleme</th>
       </tr>
     </thead>
     <tbody>
@@ -51,12 +39,7 @@
       {% endfor %}
     </tbody>
   </table>
-</div>
 
-            <div class="form-group">
-                <label for="feedback">Hocadan Geri Dönüş</label>
-                <textarea class="form-control" id="feedback" name="feedback" rows="3"></textarea>
-            </div>
             <button type="submit" class="btn btn-primary">Gönder</button>
         </form>
     </div>

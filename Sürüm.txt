@@ -27,6 +27,8 @@ Gelecek güncellemelerde yapılıcaklar.
     -Dersi alan öğrencilere göre proje gösterme.
     -Dosyaların düzenini elden geçirme(ACİL!!!!!).
     -Succes mesajlarını widget haline getir.
+    -Hoca sayfalarını oluştur.
+    -Haberler sekmesi diğer haberler.
 
 Tercihen yapılabilecekler.
     -Proje gönderme sekmesi tek tek proje gönderir ve cevaplarınıda ayrı alır.

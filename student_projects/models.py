@@ -44,3 +44,4 @@ class StudentSubmission(models.Model):
     
     def __str__(self):
         return f"Submission by {self.student.username} for {self.project_request.title}"
+    
