@@ -1,54 +1,58 @@
 <div class="col-10 my-4">
-    <div class="container my-2 p-4 shadow bg-white rounded">
-        <!-- Project Request Image -->
-        <div class="text-center mb-4">
-            <img src="{{ selected_submission.project_request.img.url }}" alt="Project Request Image" class="img-fluid rounded img-cropped">
-        </div>
-
-        <h1 class="text-center">{{ selected_submission.submission_title }} - {{ selected_submission.project_request }}</h1>
-        <p><strong>Başlık:</strong> {{ selected_submission.submission_title }}</p>
-        <p><strong>Açıklama:</strong> {{ selected_submission.submission_description }}</p>
-        <p><strong>Son Teslim:</strong> {{ selected_submission.project_request.deadline }}</p>
-        <p><strong>Aktif Hafta:</strong> {{ week_ago }}</p>
-        {% if selected_submission.is_approved == 1 %}
-            <p><strong>Durum:</strong> Onaylandı</p>
-        {% elif selected_submission.is_approved == 0 %}
-            <p><strong>Durum:</strong> Beklemede</p>
-        {% else %}
-            <p><strong>Durum:</strong> Kabul Edilmedi</p>
-        {% endif %}
-
-        <h2>Proje Paneli</h2>
-        <form method="post" enctype="multipart/form-data">
-            {% csrf_token %}      
-  <table class="table">
-    <thead class="table-dark">
-      <tr>
-        <th>Hafta</th>
-        <th>Gönderim tarihi</th>
-        <th>Yükleme</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for week in weeks %}
-      <tr>
-        <td>{{ week }}.hafta</td>
-        <td>gonderim</td>
-        <td>{{ week }}</td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
-
-            <button type="submit" class="btn btn-primary">Gönder</button>
-        </form>
+  <div class="container my-2 p-4 shadow bg-white rounded">
+    <!-- Project Request Image -->
+    <div class="text-center mb-4">
+      <img src="{{ selected_submission.project_request.img.url }}" alt="Project Request Image"
+        class="img-fluid rounded img-cropped">
     </div>
+
+    <h1 class="text-center">{{ selected_submission.submission_title }} - {{ selected_submission.project_request }}</h1>
+    <p><strong>Başlık:</strong> {{ selected_submission.submission_title }}</p>
+    <p><strong>Açıklama:</strong> {{ selected_submission.submission_description }}</p>
+    <p><strong>Son Teslim:</strong> {{ selected_submission.project_request.deadline }}</p>
+    <p><strong>Aktif Hafta:</strong> {{ active_week }}</p>
+    {% if selected_submission.is_approved == 1 %}
+    <p><strong>Durum:</strong> Onaylandı</p>
+    {% elif selected_submission.is_approved == 0 %}
+    <p><strong>Durum:</strong> Beklemede</p>
+    {% else %}
+    <p><strong>Durum:</strong> Kabul Edilmedi</p>
+    {% endif %}
+
+    <h2>Proje Paneli</h2>
+    <table class="table">
+      <thead class="table-dark">
+        <tr>
+          <th>Hafta</th>
+          <th>Gönderim tarihi</th>
+          <th>Yükleme</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for week in weeks %}
+        <form method="post" action="{% url 'week_submission' selected_submission.id week.week_number %}">
+          {% csrf_token %}
+          <tr class="{% if week.week_number == active_week %}table-primary{% else %}table-danger{% endif %}">
+            <input type="hidden" name="week_number" value="{{ week.week_number }}">
+            <td>{{ week.week_number }}.hafta</td>
+            <td>{{ week.submitted_at|date:"d F Y" }}</td>
+            <td><input class="form-control" type="url" name="week_submission_link" placeholder="{{ week.week_url }}"></td>
+            <td><button type="submit" class="btn btn-primary">Gönder</button></td>
+          </tr>
+        </form>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
 </div>
 
 <style>
-    .img-cropped {
-        width: 100%;
-        height: 300px; /* Belirli bir yükseklik */
-        object-fit: cover; /* Resmin kenarları doldurulur, üstten ve alttan kırpılır */
-    }
+  .img-cropped {
+    width: 100%;
+    height: 300px;
+    /* Belirli bir yükseklik */
+    object-fit: cover;
+    /* Resmin kenarları doldurulur, üstten ve alttan kırpılır */
+  }
 </style>

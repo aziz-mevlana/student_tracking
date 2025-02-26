@@ -20,6 +20,11 @@ v0.76
     -Proje yükleme sayfası görsel güncelleme yapıldı.
     -Proje işlem paneli düzenlemesi.
 
+v.771
+    -Modele WeekSubmission yapısı eklendi.
+    -Haftalik proje yükleme paneli aktif edildi.
+    -Tablo bakılabilir bi hale getirildi
+
 
 
 Gelecek güncellemelerde yapılıcaklar.

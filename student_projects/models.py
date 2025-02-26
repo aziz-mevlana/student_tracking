@@ -45,3 +45,18 @@ class StudentSubmission(models.Model):
     def __str__(self):
         return f"Submission by {self.student.username} for {self.project_request.title}"
     
+class WeekSubmission(models.Model):
+    APPROVED_CHOICES = [
+        (0, 'Waiting for Approval'),
+        (1, 'Approved'),
+        (2, 'Not Approved'),
+    ]
+    
+    submission_request = models.ForeignKey(StudentSubmission, on_delete=models.CASCADE, related_name='week_submissions')
+    submission_link = models.URLField()
+    week_number = models.IntegerField()
+    submitted_at = models.DateTimeField(auto_now_add=True)
+    is_approved = models.IntegerField(choices=APPROVED_CHOICES, default=0)
+    
+    def __str__(self):
+        return f"Week {self.week_number} submission by {self.submission_request.student.username} for {self.submission_request.project_request.title}"

@@ -1,12 +1,26 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import ProjectRequest, StudentSubmission
+from .models import ProjectRequest, StudentSubmission, WeekSubmission
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django.urls import reverse
+from datetime import timedelta, datetime
 
 def submission_detail(request, submission_id):
     submission = get_object_or_404(StudentSubmission, pk=submission_id)
     return render(request, 'student_projects/student_projects.html', {'submission': submission})
+
+def week_submission(request, submission_id, week_number):
+    submission = get_object_or_404(StudentSubmission, pk=submission_id)
+    week_submission, created = WeekSubmission.objects.get_or_create(
+        submission_request=submission,
+        week_number=week_number
+    )
+    if request.method == 'POST':
+        week_submission.submission_link = request.POST['week_submission_link']
+        week_submission.submitted_at = timezone.now()
+        week_submission.save()
+        return redirect('student_projects')  # Başarılı gönderimden sonra yönlendirme
+    return render(request, 'student_projects/week_submission_form.html', {'week_submission': week_submission})
 
 def project_detail(request, project_id):
     project = get_object_or_404(ProjectRequest, pk=project_id)
@@ -26,12 +40,40 @@ def student_projects(request):
     approved_submissions = [submission for submission in submissions if submission.is_approved == 1]  # Onaylı projeleri filtrele.
     current_time = timezone.now()
     
+    # active_week hesaplaması
+    active_week = None
+    submission_created_at = timezone.now()
+    selected_submission = None
+    if selected_category:
+        try:
+            selected_project = ProjectRequest.objects.get(pk=selected_category)
+            submission_created_at = selected_project.submission_start
+            active_week = (current_time - submission_created_at).days // 7 + 1
+        except ProjectRequest.DoesNotExist:
+            selected_submission = get_object_or_404(StudentSubmission, pk=selected_category)
+            submission_created_at = selected_submission.project_request.submission_start
+            active_week = (current_time - submission_created_at).days // 7 + 1
+
+    # submitted_at hesaplaması
+    weeks = []
+    for week in range(1, 9):
+        week_start_date = submission_created_at + timedelta(weeks=week-1)
+        week_submission = WeekSubmission.objects.filter(submission_request=selected_submission, week_number=week).first() if selected_submission else None
+        week_url = week_submission.submission_link if week_submission else None
+        weeks.append({
+            'week_url': week_url,
+            'week_number': week,
+            'submitted_at': week_start_date
+        })
+
     context = {
         'projects': projects,
         'submission_message': submission_message,
         'submissions': submissions,
         'approved_submissions': approved_submissions,
         'selected_category': selected_category,
+        'active_week': active_week,  # active_week'i context'e ekleyin
+        'weeks': weeks,  # weeks'i context'e ekleyin
     }
 
     if selected_category:
@@ -40,16 +82,9 @@ def student_projects(request):
             context['selected_project'] = selected_project
         except ProjectRequest.DoesNotExist:
             selected_submission = get_object_or_404(StudentSubmission, pk=selected_category)
-            submission_created_at = selected_submission.project_request.submission_start
-            week_ago = (current_time - submission_created_at).days // 7 + 1
-            weeks = [week + 1 for week in range(week_ago)]
             context['selected_submission'] = selected_submission
-            context['weeks'] = weeks
-            context['week_ago'] = week_ago
+
     return render(request, 'student_projects/student_projects.html', context)
-
-
-
 
 def active_projects(request):
     current_time = timezone.now()
