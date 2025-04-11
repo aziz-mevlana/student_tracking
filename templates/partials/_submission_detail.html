@@ -1,58 +1,468 @@
 <div class="col-10 my-4">
-  <div class="container my-2 p-4 shadow bg-white rounded">
-    <!-- Project Request Image -->
-    <div class="text-center mb-4">
-      <img src="{{ selected_submission.project_request.img.url }}" alt="Project Request Image"
-        class="img-fluid rounded img-cropped">
+  <div class="container my-2 p-4 shadow-lg bg-white rounded">
+    <!-- Proje Başlık ve Görsel -->
+    <div class="position-relative mb-4">
+      <div class="project-image-container">
+        <img src="{{ selected_submission.project_request.img.url }}" alt="Project Request Image" class="project-image">
+      </div>
+      <div class="project-title-overlay">
+        <h1>{{ selected_submission.submission_title }}</h1>
+        <p class="lead text-white mb-0">{{ selected_submission.project_request }}</p>
+      </div>
     </div>
 
-    <h1 class="text-center">{{ selected_submission.submission_title }} - {{ selected_submission.project_request }}</h1>
-    <p><strong>Başlık:</strong> {{ selected_submission.submission_title }}</p>
-    <p><strong>Açıklama:</strong> {{ selected_submission.submission_description }}</p>
-    <p><strong>Son Teslim:</strong> {{ selected_submission.project_request.deadline }}</p>
-    <p><strong>Aktif Hafta:</strong> {{ active_week }}</p>
-    {% if selected_submission.is_approved == 1 %}
-    <p><strong>Durum:</strong> Onaylandı</p>
-    {% elif selected_submission.is_approved == 0 %}
-    <p><strong>Durum:</strong> Beklemede</p>
-    {% else %}
-    <p><strong>Durum:</strong> Kabul Edilmedi</p>
-    {% endif %}
+    <!-- Proje Bilgileri -->
+    <div class="row mb-4">
+      <div class="col-md-8">
+        <div class="project-info-card">
+          <h5 class="card-subtitle mb-3">Proje Detayları</h5>
+          <div class="detail-item">
+            <span class="detail-label">Başlık:</span>
+            <span class="detail-value">{{ selected_submission.submission_title }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Açıklama:</span>
+            <span class="detail-value">{{ selected_submission.submission_description }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Son Teslim:</span>
+            <span class="detail-value">{{ selected_submission.project_request.deadline }}</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="status-card">
+          <div class="status-card-header">
+            <i class="fas fa-info-circle me-2"></i>Proje Durumu
+          </div>
+          <div class="status-card-body">
+            <div class="active-week-info">
+              <div class="active-week-number">{{ active_week }}</div>
+              <div class="active-week-text">Aktif Hafta</div>
+              {% if active_week and active_week > 0 %}
+                {% with active_week_data=weeks|dictsort:"week_number"|slice:":active_week"|last %}
+                <div class="active-week-date">{{ active_week_data.submitted_at|date:"d.m.Y" }}</div>
+                {% endwith %}
+              {% endif %}
+            </div>
+            <div class="approval-status">
+              {% if selected_submission.is_approved == 1 %}
+                <div class="status-indicator approved">
+                  <i class="fas fa-check-circle"></i>
+                  <span>Onaylandı</span>
+                </div>
+              {% elif selected_submission.is_approved == 0 %}
+                <div class="status-indicator pending">
+                  <i class="fas fa-clock"></i>
+                  <span>Beklemede</span>
+                </div>
+              {% else %}
+                <div class="status-indicator rejected">
+                  <i class="fas fa-times-circle"></i>
+                  <span>Kabul Edilmedi</span>
+                </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-    <h2>Proje Paneli</h2>
-    <table class="table">
-      <thead class="table-dark">
-        <tr>
-          <th>Hafta</th>
-          <th>Gönderim tarihi</th>
-          <th>Yükleme</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
+    <!-- Haftalık Teslimler -->
+    <div class="submissions-container">
+      <div class="submissions-header">
+        <h2>Haftalık Teslimler</h2>
+        <p class="text-muted">Her hafta için bağlantı ekleyin ve gönderin</p>
+      </div>
+      
+      <div class="week-cards">
         {% for week in weeks %}
-        <form method="post" action="{% url 'week_submission' selected_submission.id week.week_number %}">
-          {% csrf_token %}
-          <tr class="{% if week.week_number == active_week %}table-primary{% else %}table-danger{% endif %}">
-            <input type="hidden" name="week_number" value="{{ week.week_number }}">
-            <td>{{ week.week_number }}.hafta</td>
-            <td>{{ week.submitted_at|date:"d F Y" }}</td>
-            <td><input class="form-control" type="url" name="week_submission_link" placeholder="{{ week.week_url }}"></td>
-            <td><button type="submit" class="btn btn-primary">Gönder</button></td>
-          </tr>
-        </form>
+        <div class="week-card {% if week.week_url %}submitted{% elif week.week_number == active_week %}active{% else %}upcoming{% endif %}">
+          <div class="week-header">
+            <span class="week-number">{{ week.week_number }}</span>
+            <span class="week-date">{{ week.submitted_at|date:"d.m.Y" }}</span>
+            <div class="week-status">
+              {% if week.week_url %}
+                <span class="status-dot submitted-dot" title="Gönderildi"></span>
+              {% elif week.week_number == active_week %}
+                <span class="status-dot active-dot" title="Aktif Hafta"></span>
+              {% else %}
+                <span class="status-dot upcoming-dot" title="Gelecek Hafta"></span>
+              {% endif %}
+            </div>
+          </div>
+          <div class="week-body">
+            <form method="post" action="{% url 'week_submission' selected_submission.id week.week_number %}">
+              {% csrf_token %}
+              <input type="hidden" name="week_number" value="{{ week.week_number }}">
+              <div class="link-input-group">
+                <input type="url" name="week_submission_link" class="link-input" required
+                      {% if week.week_url %}value="{{ week.week_url }}"{% else %}placeholder="URL girin"{% endif %}>
+                <button type="submit" class="submit-btn">
+                  <i class="fas fa-paper-plane"></i>
+                </button>
+                {% if week.week_url %}
+                <a href="{{ week.week_url }}" target="_blank" class="view-btn">
+                  <i class="fas fa-external-link-alt"></i>
+                </a>
+                {% endif %}
+              </div>
+            </form>
+          </div>
+        </div>
         {% endfor %}
-      </tbody>
-    </table>
+      </div>
+    </div>
   </div>
 </div>
 
 <style>
-  .img-cropped {
+  /* Modern Proje Detay Sayfası Stili */
+  
+  /* Ana konteyner */
+  .container {
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1) !important;
+    border-radius: 12px !important;
+    overflow: hidden;
+  }
+
+  /* Proje Resmi ve Başlık Bölümü */
+  .project-image-container {
+    height: 280px;
+    overflow: hidden;
+    border-radius: 8px;
+    position: relative;
+  }
+
+  .project-image {
     width: 100%;
-    height: 300px;
-    /* Belirli bir yükseklik */
+    height: 100%;
     object-fit: cover;
-    /* Resmin kenarları doldurulur, üstten ve alttan kırpılır */
+    transition: transform 0.5s;
+  }
+  
+  .project-image-container:hover .project-image {
+    transform: scale(1.05);
+  }
+
+  .project-title-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(0deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%);
+    padding: 30px 20px 20px;
+    border-radius: 0 0 8px 8px;
+  }
+
+  .project-title-overlay h1 {
+    color: white;
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 5px;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.6);
+  }
+
+  /* Proje Bilgi Kartı */
+  .project-info-card {
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    padding: 20px;
+    height: 100%;
+  }
+
+  .card-subtitle {
+    color: #495057;
+    font-weight: 600;
+    border-bottom: 2px solid #e9ecef;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+  }
+
+  .detail-item {
+    margin-bottom: 10px;
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .detail-label {
+    font-weight: 600;
+    color: #495057;
+    width: 120px;
+    margin-right: 10px;
+  }
+
+  .detail-value {
+    flex: 1;
+    min-width: 60%;
+    color: #212529;
+  }
+
+  /* Durum Kartı */
+  .status-card {
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #e9ecef;
+    height: 100%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  }
+
+  .status-card-header {
+    background-color: #007bff;
+    color: white;
+    padding: 12px 15px;
+    font-weight: 600;
+    font-size: 1rem;
+  }
+
+  .status-card-body {
+    padding: 15px;
+  }
+
+  .active-week-info {
+    text-align: center;
+    padding: 10px 0 15px;
+    border-bottom: 1px solid #e9ecef;
+    margin-bottom: 15px;
+  }
+
+  .active-week-number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #007bff;
+    line-height: 1;
+  }
+
+  .active-week-text {
+    font-size: 0.8rem;
+    color: #6c757d;
+    margin-bottom: 5px;
+  }
+  
+  .active-week-date {
+    font-size: 0.9rem;
+    color: #495057;
+    background: #f1f3f5;
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 20px;
+  }
+
+  .approval-status {
+    text-align: center;
+  }
+
+  .status-indicator {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 16px;
+    border-radius: 30px;
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+
+  .status-indicator i {
+    margin-right: 8px;
+    font-size: 1.1rem;
+  }
+
+  .approved {
+    background-color: #d4edda;
+    color: #155724;
+  }
+
+  .pending {
+    background-color: #fff3cd;
+    color: #856404;
+  }
+
+  .rejected {
+    background-color: #f8d7da;
+    color: #721c24;
+  }
+
+  /* Haftalık Teslimler Bölümü */
+  .submissions-container {
+    margin-top: 30px;
+  }
+
+  .submissions-header {
+    margin-bottom: 20px;
+    border-bottom: 2px solid #e9ecef;
+    padding-bottom: 10px;
+  }
+
+  .submissions-header h2 {
+    font-size: 1.5rem;
+    color: #212529;
+    margin-bottom: 5px;
+  }
+
+  .week-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 15px;
+  }
+
+  .week-card {
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  
+  .week-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+  }
+
+  .week-card.submitted {
+    border-left: 4px solid #28a745;
+  }
+
+  .week-card.active {
+    border-left: 4px solid #ffc107;
+  }
+
+  .week-card.upcoming {
+    border-left: 4px solid #dee2e6;
+  }
+
+  .week-header {
+    display: flex;
+    align-items: center;
+    padding: 12px 15px;
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #e9ecef;
+  }
+
+  .week-number {
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: #495057;
+    margin-right: 5px;
+  }
+
+  .week-number:after {
+    content: ".";
+    margin-right: 5px;
+  }
+
+  .week-date {
+    font-size: 0.85rem;
+    color: #6c757d;
+    flex: 1;
+  }
+
+  .week-status {
+    display: flex;
+    align-items: center;
+  }
+
+  .status-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+
+  .submitted-dot {
+    background-color: #28a745;
+  }
+
+  .active-dot {
+    background-color: #ffc107;
+  }
+
+  .upcoming-dot {
+    background-color: #dee2e6;
+  }
+
+  .week-body {
+    padding: 15px;
+    background-color: white;
+  }
+
+  .link-input-group {
+    position: relative;
+    display: flex;
+  }
+
+  .link-input {
+    width: 100%;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    padding: 10px 80px 10px 12px;
+    font-size: 0.9rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  }
+
+  .link-input:focus {
+    border-color: #80bdff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    outline: none;
+  }
+
+  .submit-btn, .view-btn {
+    position: absolute;
+    top: 5px;
+    height: calc(100% - 10px);
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    width: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.15s;
+  }
+
+  .submit-btn {
+    right: 5px;
+  }
+
+  .view-btn {
+    right: 46px;
+    background-color: #6c757d;
+  }
+
+  .submit-btn:hover {
+    background-color: #0069d9;
+  }
+
+  .view-btn:hover {
+    background-color: #5a6268;
+  }
+
+  /* Responsive ayarlamalar */
+  @media (max-width: 768px) {
+    .week-cards {
+      grid-template-columns: 1fr;
+    }
+    
+    .project-title-overlay h1 {
+      font-size: 1.5rem;
+    }
+    
+    .project-image-container {
+      height: 220px;
+    }
+    
+    .status-card {
+      margin-top: 20px;
+    }
+  }
+
+  @media (max-width: 576px) {
+    .detail-label, .detail-value {
+      width: 100%;
+    }
+    
+    .active-week-number {
+      font-size: 2rem;
+    }
   }
 </style>

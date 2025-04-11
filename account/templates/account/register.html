@@ -5,57 +5,68 @@
 <link rel="stylesheet" href="{% static 'account/css/style.css' %}">
 {% endblock %}
 
-{% block title %} Register {% endblock %}
+{% block title %} Kayıt Ol {% endblock %}
 
 {% block content %}
-
 <div class="container d-flex justify-content-center align-items-center min-vh-100">
-    <!----------------------- Register Container -------------------------->
     <div class="row border rounded-5 p-3 bg-white shadow box-area">
-        <!--------------------------- Left Box ---------------------------->
-        <div class="col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box" style="background: #103cbe;">
+        <!-- Sol Bölüm -->
+        <div class="col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box" style="background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);">
             <div class="featured-image mb-3">
-                <img src="images/1.png" class="img-fluid" style="width: 250px;">
+                <img src="{% static 'images/register-illustration.svg' %}" class="img-fluid" style="width: 250px;">
             </div>
-            <p class="text-white fs-2" style="font-family: 'Courier New', Courier, monospace; font-weight: 600;">Join Us</p>
-            <small class="text-white text-wrap text-center" style="width: 17rem;font-family: 'Courier New', Courier, monospace;">Become part of our amazing community!</small>
+            <p class="text-white fs-2 fw-bold">Aramıza Katılın</p>
+            <p class="text-white text-wrap text-center px-3" style="max-width: 20rem;">Bilişim Sistemleri ve Teknolojileri topluluğumuza hoş geldiniz!</p>
         </div> 
-        <!--------------------------- Right Box --------------------------->
+        <!-- Sağ Bölüm -->
         <form class="col-md-6 right-box" method="POST">
             {% csrf_token %}
             {% if error %}
-                <div class="alert alert-danger">
+                <div class="alert alert-danger alert-dismissible fade show">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                     {{ error }}
                 </div>
             {% endif %}
             <div class="row align-items-center">
-                <div class="header-text mb-4">
-                    <h2>Kayıt Olun</h2>
-                    <p>Aramıza katıldığınız için mutluyuz.</p>
+                <div class="header-text mb-4 text-center">
+                    <h2 class="fw-bold">Yeni Hesap Oluştur</h2>
+                    <p class="text-muted">Aramıza katıldığınız için mutluyuz</p>
                 </div>
 
                 <div class="input-group mb-3">
-                    <input type="email" class="form-control form-control-lg bg-light fs-6" placeholder="Email" name="email">
+                    <span class="input-group-text bg-light"><i class="bi bi-envelope"></i></span>
+                    <input type="email" class="form-control form-control-lg bg-light" placeholder="E-posta adresiniz" name="email" required>
                 </div>
                 <div class="input-group mb-3">
-                    <input type="password" class="form-control form-control-lg bg-light fs-6" placeholder="Şifre" name="password">
+                    <span class="input-group-text bg-light"><i class="bi bi-lock"></i></span>
+                    <input type="password" class="form-control form-control-lg bg-light" placeholder="Şifreniz" name="password" required>
                 </div>
+                <div class="input-group mb-4">
+                    <span class="input-group-text bg-light"><i class="bi bi-lock-fill"></i></span>
+                    <input type="password" class="form-control form-control-lg bg-light" placeholder="Şifrenizi tekrar girin" name="repassword" required>
+                </div>
+                
+                <div class="mb-3">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="terms" required>
+                        <label class="form-check-label" for="terms">
+                            <small>Kullanım şartlarını ve gizlilik politikasını kabul ediyorum.</small>
+                        </label>
+                    </div>
+                </div>
+                
                 <div class="input-group mb-3">
-                    <input type="password" class="form-control form-control-lg bg-light fs-6" placeholder="Şifre (Tekrar)" name="repassword">
+                    <button class="btn btn-primary w-100 py-3 fw-bold" type="submit">Kayıt Ol</button>
                 </div>
-                <div class="input-group mb-3">
-                    <button class="btn btn-lg btn-primary w-100 fs-6" type="submit">Kayıt Ol</button>
-                </div>
-                <div class="row">
-                    <small>Zaten hesabınız var mı? <a href="{% url 'login' %}">Giriş Yapın</a></small>
+                <div class="text-center mt-3">
+                    <small>Zaten hesabınız var mı? <a href="{% url 'login' %}" class="text-decoration-none fw-bold">Giriş Yapın</a></small>
                 </div>
             </div>
         </form> 
     </div>
 </div>
-
-
 {% endblock %}
+
 {% block js_file %}
 <script src="{% static 'account/js/script.js' %}"></script>
 {% endblock %}

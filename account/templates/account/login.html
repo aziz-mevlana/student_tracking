@@ -5,63 +5,63 @@
 <link rel="stylesheet" href="{% static 'account/css/style.css' %}">
 {% endblock %}
 
-{% block title %} Login {% endblock %}
+{% block title %} Giriş Yap {% endblock %}
 
 {% block content %}
-<!----------------------- Main Container -------------------------->
 <div class="container d-flex justify-content-center align-items-center min-vh-100">
-    <!----------------------- Login Container -------------------------->
-       <div class="row border rounded-5 p-3 bg-white shadow box-area">
-    <!--------------------------- Left Box ----------------------------->
-       <div class="col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box" style="background: #103cbe;">
-           <div class="featured-image mb-3">
-            <img src="images/1.png" class="img-fluid" style="width: 250px;">
-           </div>
-           <p class="text-white fs-2" style="font-family: 'Courier New', Courier, monospace; font-weight: 600;">Be Verified</p>
-           <small class="text-white text-wrap text-center" style="width: 17rem;font-family: 'Courier New', Courier, monospace;">Join experienced Designers on this platform.</small>
-       </div> 
-    <!-------------------- ------ Right Box ---------------------------->
-        
-       <form class="col-md-6 right-box" method="POST">
-        {% csrf_token %}
-        {% if error %}
-            <div class="alert alert-danger">
-                {{error}}
+    <div class="row border rounded-5 p-3 bg-white shadow box-area">
+        <!-- Sol Bölüm -->
+        <div class="col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box" style="background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);">
+            <div class="featured-image mb-3">
+                <img src="{% static 'images/login-illustration.svg' %}" class="img-fluid" style="width: 250px;">
             </div>
-        {% endif %}
-          <div class="row align-items-center">
-                <div class="header-text mb-4">
-                     <h2>Tekrardan Hoşgeldin</h2>
-                     <p>Seni gördüğümüze sevindik.</p>
+            <p class="text-white fs-2 fw-bold">Bilişim Sistemleri</p>
+            <p class="text-white text-wrap text-center px-3" style="max-width: 20rem;">Öğrenci bilgi sistemine hoş geldiniz!</p>
+        </div> 
+        <!-- Sağ Bölüm -->
+        <form class="col-md-6 right-box" method="POST">
+            {% csrf_token %}
+            {% if error %}
+                <div class="alert alert-danger alert-dismissible fade show">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    {{error}}
+                </div>
+            {% endif %}
+            <div class="row align-items-center">
+                <div class="header-text mb-4 text-center">
+                     <h2 class="fw-bold">Tekrar Hoş Geldiniz</h2>
+                     <p class="text-muted">Sizi tekrar görmekten mutluluk duyuyoruz</p>
                 </div>
                 <div class="input-group mb-3">
-                    <input type="email" class="form-control form-control-lg bg-light fs-6" placeholder="Email" name="email">
+                    <span class="input-group-text bg-light"><i class="bi bi-envelope"></i></span>
+                    <input type="email" class="form-control form-control-lg bg-light" placeholder="E-posta adresiniz" name="email" required>
                 </div>
-                <div class="input-group mb-1">
-                    <input type="password" class="form-control form-control-lg bg-light fs-6" placeholder="Şifre" name="password">
+                <div class="input-group mb-3">
+                    <span class="input-group-text bg-light"><i class="bi bi-lock"></i></span>
+                    <input type="password" class="form-control form-control-lg bg-light" placeholder="Şifreniz" name="password" required>
                 </div>
-                <div class="input-group mb-5 d-flex justify-content-between">
+                <div class="input-group mb-4 d-flex justify-content-between">
                     <div class="form-check">
                         <input type="checkbox" class="form-check-input" id="formCheck">
                         <label for="formCheck" class="form-check-label text-secondary"><small>Beni Hatırla</small></label>
                     </div>
                     <div class="forgot">
-                        <small><a href="#">Şifremi unutum.</a></small>
+                        <small><a href="#" class="text-decoration-none">Şifremi unuttum</a></small>
                     </div>
                 </div>
                 <div class="input-group mb-3">
-                    <button class="btn btn-lg btn-primary w-100 fs-6" type="submit" >Giriş Yap</button>
+                    <button class="btn btn-primary w-100 py-3 fw-bold" type="submit">Giriş Yap</button>
                 </div>
                 
-                <div class="row">
-                    <small>Hesabınız yok mu? <a href="{% url 'register' %}">Kayıt Olun</a></small>
+                <div class="text-center mt-3">
+                    <small>Hesabınız yok mu? <a href="{% url 'register' %}" class="text-decoration-none fw-bold">Kayıt Olun</a></small>
                 </div>
-          </div>
-       </form> 
-      </div>
+            </div>
+        </form> 
     </div>
-
+</div>
 {% endblock %}
+
 {% block js_file %}
 <script src="{% static 'account/js/script.js' %}"></script>
 {% endblock %}
