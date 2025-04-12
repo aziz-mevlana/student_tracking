@@ -1,27 +1,238 @@
 {% extends "base.html" %}
 
-{% block title %} Graduating Students {% endblock %}
+{% block title %} Mezunlar {% endblock %}
 
 {% block content %}
-<div class="row mt-0 me-3">
-    <!-- Kategoriler (Sol Taraf) -->
-    <div class="col-2">
-        {% include 'partials/_categories.html' %}
-    </div>
-    
-    <!-- Mezunlar (Sağ Taraf) -->
-    <div class="col-10 mt-4">
-        {% if graduates|length > 0 %}
-            <!-- Mezunlar Listesi -->
-            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-5 g-4">
-                {% for graduate in graduates %}
-                    {% include 'partials/_graduates_card.html' %}
-                {% endfor %}
+<div class="container-fluid py-4">
+    <div class="row">
+        <!-- Kategoriler (Sol Taraf) -->
+        <div class="col-md-2 col-lg-2">
+            <div class="card shadow border-0 mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">
+                        <i class="bi bi-filter"></i> Kategoriler
+                    </h5>
+                </div>
+                <div class="card-body">
+                    {% include 'partials/_categories.html' %}
+                </div>
             </div>
-        {% else %}
-            <!-- Mezun Yok Mesajı -->
-            <div class="alert alert-warning">No Graduates</div>
-        {% endif %}
+        </div>
+        
+        <!-- Mezunlar (Sağ Taraf) -->
+        <div class="col-md-10 col-lg-10">
+            <!-- Başlık ve Açıklama -->
+            <div class="container mb-4">
+                <div class="row">
+                    <div class="col-12">
+                        <h1 class="display-5 fw-bold text-primary">
+                            {% if selected_category %}
+                                {{ selected_category|title }} Bölümü Mezunları
+                            {% else %}
+                                Mezunlarımız
+                            {% endif %}
+                        </h1>
+                        <p class="lead text-muted">
+                            {% if selected_category %}
+                                {{ selected_category|title }} bölümünden mezun olan başarılı öğrencilerimiz
+                            {% else %}
+                                Okulumuzdan mezun olan ve kariyerlerine devam eden başarılı öğrencilerimiz
+                            {% endif %}
+                        </p>
+                        <hr class="my-4">
+                    </div>
+                </div>
+            </div>
+            
+            {% if graduates|length > 0 %}
+                <!-- Mezunlar Listesi -->
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+                    {% for graduate in graduates %}
+                        {% include 'partials/_graduates_card.html' %}
+                    {% endfor %}
+                </div>
+            {% else %}
+                <!-- Mezun Yok Mesajı -->
+                <div class="alert alert-warning">
+                    <i class="bi bi-exclamation-triangle me-2"></i> 
+                    Bu kategoride henüz mezun öğrenci bulunmamaktadır
+                </div>
+            {% endif %}
+        </div>
     </div>
 </div>
+
+<!-- Mezun Detay Modalı -->
+<div class="modal fade" id="graduateDetailModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content border-0 shadow">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title" id="graduateModalLabel">Mezun Detayları</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-0" id="graduateModalContent">
+                {% if graduate_detail %}
+                <!-- Mezun detay bilgileri -->
+                <div class="row g-0">
+                    <div class="col-md-5">
+                        <img src="{{ graduate_detail.img.url }}" alt="{{ graduate_detail.name }} {{ graduate_detail.surname }}" 
+                             class="img-fluid h-100" style="object-fit: cover;">
+                    </div>
+                    <div class="col-md-7 p-4">
+                        <h3 class="fw-bold mb-3">{{ graduate_detail.name }} {{ graduate_detail.surname }}</h3>
+                        
+                        <div class="mb-3">
+                            <span class="badge bg-light text-dark">{{ graduate_detail.category.name }}</span>
+                            <span class="badge bg-primary">{{ graduate_detail.graduation_date|date:"d F Y" }}</span>
+                        </div>
+                        
+                        <p class="mb-4">{{ graduate_detail.description }}</p>
+                        
+                        <!-- Sosyal Medya Linkleri -->
+                        <div class="d-flex gap-2 mb-4">
+                            {% if graduate_detail.linkedin %}
+                            <a href="{{ graduate_detail.linkedin }}" target="_blank" class="btn btn-outline-primary btn-sm">
+                                <i class="bi bi-linkedin"></i>
+                            </a>
+                            {% endif %}
+                            
+                            {% if graduate_detail.github %}
+                            <a href="{{ graduate_detail.github }}" target="_blank" class="btn btn-outline-dark btn-sm">
+                                <i class="bi bi-github"></i>
+                            </a>
+                            {% endif %}
+                            
+                            {% if graduate_detail.twitter %}
+                            <a href="{{ graduate_detail.twitter }}" target="_blank" class="btn btn-outline-info btn-sm">
+                                <i class="bi bi-twitter-x"></i>
+                            </a>
+                            {% endif %}
+                            
+                            {% if graduate_detail.instagram %}
+                            <a href="{{ graduate_detail.instagram }}" target="_blank" class="btn btn-outline-danger btn-sm">
+                                <i class="bi bi-instagram"></i>
+                            </a>
+                            {% endif %}
+                            
+                            {% if graduate_detail.website %}
+                            <a href="{{ graduate_detail.website }}" target="_blank" class="btn btn-outline-success btn-sm">
+                                <i class="bi bi-globe"></i>
+                            </a>
+                            {% endif %}
+                        </div>
+                        
+                        <h5 class="border-top pt-3 mb-3">İletişim Bilgileri</h5>
+                        <p>
+                            <i class="bi bi-envelope me-2"></i>
+                            <a href="mailto:{{ graduate_detail.email }}">{{ graduate_detail.email }}</a>
+                        </p>
+                        
+                        <div class="mt-4 d-flex gap-2">
+                            <a href="mailto:{{ graduate_detail.email }}" class="btn btn-primary">
+                                <i class="bi bi-envelope me-1"></i> İletişime Geç
+                            </a>
+                            
+                            {% if graduate_detail.cv_file %}
+                            <a href="{{ graduate_detail.cv_file.url }}" download class="btn btn-outline-primary">
+                                <i class="bi bi-file-earmark-pdf me-1"></i> CV İndir
+                            </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% else %}
+                <!-- Yükleniyor göstergesi -->
+                <div class="text-center p-5">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Yükleniyor...</span>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block js_file %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // URL'den graduate parametresini al
+        const urlParams = new URLSearchParams(window.location.search);
+        const graduateSlug = urlParams.get('graduate');
+        
+        if (graduateSlug) {
+            // Modal'ı göster
+            const graduateModal = new bootstrap.Modal(document.getElementById('graduateDetailModal'));
+            graduateModal.show();
+            
+            // Modal kapatıldığında URL'den graduate parametresini kaldır
+            document.getElementById('graduateDetailModal').addEventListener('hidden.bs.modal', function () {
+                const url = new URL(window.location);
+                url.searchParams.delete('graduate');
+                window.history.pushState({}, '', url);
+            });
+            
+            // Eğer graduate_detail context değişkeni yoksa AJAX ile detayları çek
+            {% if not graduate_detail %}
+            fetch(`/mezun-detay/${graduateSlug}`, {
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Modal içeriğini doldur
+                    const graduate = data.graduate;
+                    const content = document.getElementById('graduateModalContent');
+                    
+                    // HTML içeriğini oluştur
+                    let html = `
+                    <div class="row g-0">
+                        <div class="col-md-5">
+                            <img src="${graduate.img_url}" alt="${graduate.name} ${graduate.surname}" 
+                                class="img-fluid h-100" style="object-fit: cover;">
+                        </div>
+                        <div class="col-md-7 p-4">
+                            <h3 class="fw-bold mb-3">${graduate.name} ${graduate.surname}</h3>
+                            
+                            <div class="mb-3">
+                                <span class="badge bg-light text-dark">${graduate.category}</span>
+                                <span class="badge bg-primary">${graduate.graduation_date}</span>
+                            </div>
+                            
+                            <p class="mb-4">${graduate.description}</p>
+                            
+                            <h5 class="border-top pt-3 mb-3">İletişim Bilgileri</h5>
+                            <p>
+                                <i class="bi bi-envelope me-2"></i>
+                                <a href="mailto:${graduate.email}">${graduate.email}</a>
+                            </p>
+                            
+                            <div class="mt-4">
+                                <a href="mailto:${graduate.email}" class="btn btn-primary">
+                                    <i class="bi bi-envelope me-1"></i> İletişime Geç
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    `;
+                    
+                    content.innerHTML = html;
+                }
+            })
+            .catch(error => console.error('Error:', error));
+            {% endif %}
+        }
+        
+        // Kartlara tıklandığında mezun detaylarına yönlendir
+        document.querySelectorAll('a[href^="/mezunlar?graduate="]').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                window.location.href = this.getAttribute('href');
+            });
+        });
+    });
+</script>
 {% endblock %}

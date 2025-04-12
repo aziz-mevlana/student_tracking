@@ -1,0 +1,150 @@
+mantık şeması kullanarak yapılan elektronik yapıların cebirsel ifadelerinin karmaşık olduğu gözlenmektedir.
+bu karmaşıklık boolean cebiri kullanılarak sadeleştirilmektedir. fakat bu işlem bazen zorluk çıkarmaktadır.
+boolean cebirinin yetersiz kaldığı bu durumda karnau haritası devreye girmektedir. 
+karnau haritaları az sayıda terimle çok sayıda fonksiyon ifade edebilmektedir.
+
+dikkate almama yöntemi
+
+bazı k çizelgelrinde 1 ve 0'lar bazen öyle bir duruma gelir ki fonksiyonunun doğruluk değerinin 1 veya 0 olması fark etmez 
+dolayısıyla minterm'in 0 veya 1 yapan koşul oluşunca meydana gelen olaya dikkate almamalıdır çizelge üzerinde bu durum x işareti konularak ifade edilir
+
+
+birleşik devreler
+
+bir birleşik devre birden çok mantıksal kapının bir araya gelmesi ile oluşur herhangi bir andaki çıkışların ikili değerleri girişlerin ikili değerlerinin girişlerinin bir fonksiyonu olarak ifade edilir m tane ikili değişkeninin 
+
+birleşik devre oluşturulmaısı esnasında 
+1)sorun ortaya koyulur 
+2)giriş ve çıkış değerleri harfle ortaya konur
+3)giriş ve çıkış arasındaki ilişki gösteren dorğuluk çizelgesi hazırlanır 
+4)her çıkış için sadeleştirilmiş boolen fonksiyonu üretilir 
+5)mantık şeması çizilir
+
+
+tam toplayıcı devre 
+iki yarım toplayıcının birleşiminden oluşan 3 bitin toplanmasını sağlayan devredir 
+
+yaz-bozlar
+
+sayısal sistemlerde bileşik devrelerin yanı sıra 
+
+en yaygın eş zamanlı devrelerde olarak da bilinen saat devreleridir. bu devrelerin mantığı darbe üretici ve darbe dizileri şeklindedir. bununla birlikte yaz-boz devreleri de kurulmaktadır. en çok kullanılan 5 tane yaz-boz devresi bulunmaktadır.
+
+************************************************************************************************************************************************************
+
+
+
+SAYISAL ELEMANLAR
+
+birleştirilmiş devre elemanları 
+
+yarı iletkenlerden oluşan kristal,silikon,yonga diye adlandırılan elektronik elemanlardır. bu elemanlar transistör ,diyot diye karşımıza çıkar 
+
+
+kod çözücüler 
+
+**********************************************************************************************************************************************************
+
+güçlü bilgisayar yapısı 
+
+çok büyük ölçekli entegrasyon teknolojisinin gelişmesiyle bilgisayar mimarisinin bir yapının oluşumuna imkan tanımaktadır.
+bu yapı cisc ve risc mimarileri arasında bir çözüm olarak yaygınlaşmıştır.
+burada her iki mimarinin üstün özellikleri kullanılarak güçlü bilgisayar yapısı oluşturulmaktadır.
+
+
+riscin örtüşmüş hızlı bellek pencere yapısı 
+
+toplam hızlı bellek sayısının 74 tane olup r0-r9'a global bellek, 4 tane pencere her bir pencereye bağlı 10 tane yerel bellek ile 6 belleklik komşu pencerelerin olduğu bir yapıdır. burada r0-r9 parametreleri saklarken kullanılır. 
+
+G=global hızlı bellek sayısı 
+L=her bir pencerelerdeki yerel hızlı bellek sayısı 
+C=komşu pencerelerdeki ortak hızlı bellek sayısı 
+W=pencere 
+
+pencere boyutu=L+2C+G
+toplam hızlı bellek sayısı=(L+C)*w+G (örnek: g=10, l=10, c=6, w=4)
+
+katıhal fiziği 6gen en kuvvetlisi
+
+risc ve cisc komutları
+
+load < LD
+store < ST > KAYDETME
+move < MOW > İŞLEMCİ BELLEKLERİ ARASINDAKİ İŞLEMLER
+exhange < EXC > İÇERİK DEĞİŞTİRİCİ
+input < IN > GİRİŞ TERMİNALİNE VERİ TRANSFERİ
+output < OUT> ÇIKIŞ TERMİNALİNE VERİ TRANSFERİ 
+push < PUSH> YIĞIN YAPISINA VERİ TRANSFERİ 
+pop  < POP> YIĞIN YAPISINDAN VERİ ALMAK 
+
+veri transfer adres modları 
+
+
+
+veri transfer komutları 
+veriyi transfer etme işlemini ana bellek ve hızlı bellek arsındaki transfer komutuna veri transfer komutu denir 
+
+veri işleme komutları 
+veriler arası herhangi işlemler için komutlar
+
+program kontrol komutları
+programın akışını kontrol eden komutlar 
+
+
+
+
+veri işleme komutları 
+--
+
+aritmetik komutlar 
+
+CISC İÇİN
+ADD TOPLAMA 
+INC 
+NEG 
+MUL 
+DIV 
+SUB
+
+RISC İÇİN 
+ADD 
+SUB
+
+kaydırma komutları 
+CISC 
+SHR
+SHL
+ASR
+ASL
+ROR
+ROL
+
+RISC 
+SLL
+SRL
+SRA
+SLA
+
+
+lojik komutları 
+CISC İÇİN 
+END 
+COM 
+XOR
+
+RISC 
+AND 
+OR 
+XOR 
+
+
+		
+
+
+
+
+
+
+
+
+

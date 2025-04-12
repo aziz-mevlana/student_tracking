@@ -1,24 +1,66 @@
 <div class="col">
-    <div class="card shadow-sm rounded border-0" style="width: 100%; height: 25rem;">
-        <div class="h-50">
+    <div class="card shadow rounded border-0 h-100 graduate-card">
+        <div class="position-relative graduate-img-container">
             <!-- Mezun Fotoğrafı -->
             <img src="{{ graduate.img.url }}" alt="{{ graduate.name }} {{ graduate.surname }}" 
-                 class="img-fluid rounded-top" style="height: 100%; object-fit: cover;">
+                 class="img-fluid rounded-top w-100" style="height: 200px; object-fit: cover;">
+            <!-- Mezuniyet Tarihi Rozeti -->
+            <span class="position-absolute top-0 end-0 bg-primary text-white m-2 py-1 px-2 rounded-pill small">
+                {{ graduate.graduation_date|date:"M Y" }}
+            </span>
         </div>
+        
         <!-- Mezun Bilgileri -->
-        <div class="card-body d-flex flex-column">
+        <div class="card-body d-flex flex-column p-3">
             <!-- İsim ve Soyisim -->
-            <h5 class="card-title fw-bold text-truncate" style="color: #2c3e50;">
+            <h5 class="card-title fw-bold" style="color: #2c3e50;">
                 {{ graduate.name }} {{ graduate.surname }}
             </h5>
+            
+            <!-- Kategori Etiketi -->
+            <div class="mb-2">
+                <span class="badge bg-light text-dark">{{ graduate.category.name }}</span>
+            </div>
+            
             <!-- Mezun Açıklaması -->
-            <p class="card-text text-muted text-truncate" style="flex-grow: 1;">
+            <p class="card-text text-muted small" style="flex-grow: 1; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;">
                 {{ graduate.description }}
             </p>
-            <!-- Detay Butonu -->
-            <a href="" class="btn btn-primary btn-sm mt-auto">
-                Daha Fazla Bilgi
-            </a>
+            
+            <!-- Detay Butonu ve İletişim -->
+            <div class="d-flex justify-content-between align-items-center mt-auto">
+                <a href="mailto:{{ graduate.email }}" class="btn btn-outline-secondary btn-sm">
+                    <i class="bi bi-envelope"></i>
+                </a>
+                <a href="/mezunlar?graduate={{ graduate.slug }}" class="btn btn-primary btn-sm">
+                    Daha Fazla Bilgi
+                </a>
+            </div>
         </div>
     </div>
 </div>
+
+<!-- CSS stillerini ekleyin - Bu kodları base.html'in içindeki style tag'ine ekleyin veya ayrı bir CSS dosyasına yerleştirin -->
+<style>
+    .graduate-card {
+        transition: all 0.3s ease;
+        overflow: hidden;
+    }
+    
+    .graduate-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important;
+    }
+    
+    .graduate-img-container {
+        overflow: hidden;
+    }
+    
+    .graduate-img-container img {
+        transition: transform 0.5s ease;
+    }
+    
+    .graduate-card:hover .graduate-img-container img {
+        transform: scale(1.05);
+    }
+</style>
