@@ -33,7 +33,7 @@ body.dark-mode {
 
 body.light-mode {
   background-color: var(--background-light);
-  color: var(--text-dark);
+  color: var(--text-light);
 }
 
 .navbar {
@@ -50,7 +50,7 @@ body.light-mode {
 }
 
 .card {
-  background-color: var(--background-light);
+  background-color: var(--text-light);
   color: var(--text-dark);
 }
 

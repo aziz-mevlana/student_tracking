@@ -1,36 +1,63 @@
 <!-- Onaylanan Projeler (Sağ Taraf) -->
 {% if approved_submissions %}
-<div class="row">
-    <h1>Onaylanan Projeler</h1>
-    {% for submission in approved_submissions %}
-    <div class="col-md-2 mb-2">
-        {% include 'partials/_pending_approval_projects.html' %}
+<div class="mb-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold mb-0">
+            <i class="bi bi-check-circle-fill me-2 text-success"></i> Onaylanan Projeler
+        </h2>
+        <span class="badge bg-success rounded-pill">{{ approved_submissions|length }} Proje</span>
     </div>
-    {% endfor %}
+    <hr class="mb-4">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5 g-4">
+        {% for submission in approved_submissions %}
+        <div class="col">
+            {% include 'partials/_pending_approval_projects.html' %}
+        </div>
+        {% endfor %}
+    </div>
 </div>
 {% endif %}
 
 <!-- Projeler (Sağ Taraf) -->
-<div class="row">
-    <h1>Projeler</h1>
+<div class="mb-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold mb-0">
+            <i class="bi bi-journals me-2 text-primary"></i> Projeler
+        </h2>
+        <span class="badge bg-primary rounded-pill">{{ projects|length }} Proje</span>
+    </div>
+    <hr class="mb-4">
     {% if projects|length > 0 %}
-    {% for project in projects %}
-    <div class="col-md-3 mb-3 ">
-        {% include 'partials/_projects.html' %}
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+        {% for project in projects %}
+        <div class="col">
+            {% include 'partials/_projects.html' %}
+        </div>
+        {% endfor %}
     </div>
-    {% endfor %}
     {% else %}
-    <div class="alert alert-warning">Aktif Proje Yok</div>
-    {% endif %}
-</div>
-<!-- Gonderilmis projeler (Sağ Taraf) -->
-<div class="row">
-    {% if submissions %}
-    <h1>İşlemler</h1>
-    {% for submission in submissions %}
-    <div class="col-md-2 mb-2">
-        {% include 'partials/_pending_approval_projects.html' %}
+    <div class="alert alert-warning">
+        <i class="bi bi-exclamation-triangle-fill me-2"></i> Aktif proje bulunmamaktadır
     </div>
-    {% endfor %}
     {% endif %}
 </div>
+
+<!-- Gonderilmis projeler (Sağ Taraf) -->
+{% if submissions %}
+<div class="mb-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold mb-0">
+            <i class="bi bi-hourglass-split me-2 text-warning"></i> İşlem Bekleyen Projeler
+        </h2>
+        <span class="badge bg-warning rounded-pill">{{ submissions|length }} Proje</span>
+    </div>
+    <hr class="mb-4">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5 g-4">
+        {% for submission in submissions %}
+        <div class="col">
+            {% include 'partials/_pending_approval_projects.html' %}
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}

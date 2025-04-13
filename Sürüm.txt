@@ -56,32 +56,34 @@ v0.81
     -Tablo başlıkları daha kısa hale getirildi.
 
 v0.82
-    -Proje detay sayfası tamamen modern ve profesyonel bir tasarımla yenilendi.
+    -Kayıt güncellemesi.
+
+v0.83
+    -Cursor kullanılmaya başlandı.
+    -Proje detay sayfası tamamen modern bir tasarımla yenilendi.
     -Tablo arayüzü yerine kart tabanlı modern bir arayüz eklendi.
-    -Proje başlığı ve görseli için daha çekici tasarım yapıldı.
-    -Hover animasyonları ile kullanıcı deneyimi iyileştirildi.
     -Grid sistem kullanılarak responsive ve daha estetik düzen sağlandı.
+
+v0.84
+    -Proje başlığı ve görseli için daha çekici tasarım yapıldı.
     -Durumlar için özel renkli göstergeler eklendi.
     -Tüm bileşenler kartlara dönüştürüldü ve gölge efektleri eklendi.
     -Aktif hafta ve proje durumu için özel bir durum kartı eklendi.
-    -Form giriş alanları sezgisel ve modern tasarıma dönüştürüldü.
-    -Gönder ve görüntüle butonları daha kompakt ve fonksiyonel hale getirildi.
+
+v0.85
+    -Haberler sekmesinin en altındaki diğer haberler kısmını aktif et.
+    -Sayfanın giydirmesi claude kullanılarak elden geçirildi.
 
 Gelecek güncellemelerde yapılıcaklar.
+    -Sayfalardaki css çakışmasını bitir ve css dosyalarını htmlden ayır.
     -Student submissions feedback ekleme hoca tarafından.
     -Dersi alan öğrencilere göre proje gösterme.
-    -Dosyaların düzenini elden geçirme(ACİL!!!!!).
-    -Success mesajlarını widget haline getir.
-    -Öğretmen sayfalarını oluştur.
-    -Haberler sekmesinin en altındaki diğer haberler kısmını aktif et.
     -Mobile uyumlu şekilde responsive hale getirme.
-    -Sayfaların renklerini daha güzel seç düzenle.
-    -Giriş yapma kısmında butonlara animasyon ekle.
-    -Proje sayfalarını ayrı Django uygulaması olarak yapılandırma.
-    -WeekSubmission modelinde geçmiş ve bekleyen haftalar için onay durumu kontrolü ekle.
-    -Kullanıcı profil sayfasında aktif projeleri daha görünür hale getir.
     -Proje teslim tarihi yaklaşan projeler için bildirim sistemi ekle.
     -Admin panelini öğretmenler için özelleştir.
+    -Öğretmen sayfalarını oluştur.
+
+Opsiyonel güncellemeler.
     -Dosya yükleme özelliği ekle (şu anda sadece URL).
-    -Profil sekmesindeki profil bilgileriniz kartının hover efekti olmasın.
+    -Dosyaların düzenini elden geçirme.
     

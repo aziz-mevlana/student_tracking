@@ -1,10 +1,19 @@
 {% extends "base.html" %}
+{% load static %}
 
-{% block title %} News Details {% endblock %}
+{% block css_files %}
+<link rel="stylesheet" href="{% static 'css/news.css' %}">
+{% endblock %}
+
+{% block title %} {{ new.title }} {% endblock %}
 
 {% block content %}
 
 {% include 'partials/_news_details_card.html' %}
 
+{% endblock %}
+
+{% block js_file %}
+<script src="{% static 'news/js/script.js' %}"></script>
 {% endblock %}
     

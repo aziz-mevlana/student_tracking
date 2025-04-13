@@ -1,20 +1,157 @@
 {% load static %}
-<footer class="d-flex flex-wrap justify-content-between align-items-center py-3 mt-0  myFooter shadow bg-secondary z-index-2">
-    <p class="col-md-4 mb-0 text-light">© 2024 BST Akademi. Tüm hakları saklıdır.</p>
-
-    <a href="/"class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
-        <img src="{% static 'img/bst-logo.png' %}" alt="Logo" width="13%" height="auto"
-            class="d-inline-block align-text-top logo-shadow" >
-    </a>
-
-    <ul class="nav col-md-4 justify-content-end">
-        <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
-            <li>
-                <i class="fa-brands fa-instagram text-light"></i>
-            </li>
-            <li>
-                <i class="fa-brands fa-linkedin text-light"></i>
-            </li>
-        </ul>
-    </ul>
+<!-- Footer -->
+<footer class="footer bg-dark text-white pt-5 pb-4 mt-5">
+    <div class="container">
+        <div class="row g-4">
+            <!-- Kurum Bilgileri -->
+            <div class="col-lg-4 col-md-6">
+                <div class="d-flex align-items-center mb-3">
+                    <img src="{% static 'img/bst-logo.png' %}" alt="BST Akademi Logo" class="me-3" width="60">
+                    <h5 class="fw-bold mb-0">BST Akademi</h5>
+                </div>
+                <p class="text-white-50 mb-4">Bilişim sektöründe öğrencileri geleceğe hazırlayan, yenilikçi ve pratik eğitim yaklaşımıyla fark yaratan eğitim topluluğu.</p>
+                
+                <h6 class="text-white mb-3">Bizi Takip Edin</h6>
+                <div class="d-flex gap-3 social-icons mb-4">
+                    <a href="#" class="text-white-50 social-icon" title="Instagram">
+                        <i class="bi bi-instagram"></i>
+                    </a>
+                    <a href="#" class="text-white-50 social-icon" title="LinkedIn">
+                        <i class="bi bi-linkedin"></i>
+                    </a>
+                    <a href="#" class="text-white-50 social-icon" title="Twitter">
+                        <i class="bi bi-twitter-x"></i>
+                    </a>
+                    <a href="#" class="text-white-50 social-icon" title="Facebook">
+                        <i class="bi bi-facebook"></i>
+                    </a>
+                    <a href="#" class="text-white-50 social-icon" title="YouTube">
+                        <i class="bi bi-youtube"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Hızlı Linkler -->
+            <div class="col-lg-2 col-md-6 col-6">
+                <h6 class="text-uppercase fw-bold mb-4">Hızlı Linkler</h6>
+                <ul class="list-unstyled">
+                    <li class="mb-2">
+                        <a href="{% url 'home' %}" class="text-white-50 text-decoration-none">
+                            <i class="bi bi-chevron-right small me-2"></i>Ana Sayfa
+                        </a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="{% url 'news' %}" class="text-white-50 text-decoration-none">
+                            <i class="bi bi-chevron-right small me-2"></i>Haberler
+                        </a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="{% url 'student_projects' %}" class="text-white-50 text-decoration-none">
+                            <i class="bi bi-chevron-right small me-2"></i>Projeler
+                        </a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="{% url 'graduates' %}" class="text-white-50 text-decoration-none">
+                            <i class="bi bi-chevron-right small me-2"></i>Mezunlar
+                        </a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="#" class="text-white-50 text-decoration-none">
+                            <i class="bi bi-chevron-right small me-2"></i>Hakkımızda
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- Kurumsal Bilgiler -->
+            <div class="col-lg-2 col-md-6 col-6">
+                <h6 class="text-uppercase fw-bold mb-4">Kurumsal</h6>
+                <ul class="list-unstyled">
+                    <li class="mb-2">
+                        <a href="#" class="text-white-50 text-decoration-none">
+                            <i class="bi bi-chevron-right small me-2"></i>Gizlilik Politikası
+                        </a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="#" class="text-white-50 text-decoration-none">
+                            <i class="bi bi-chevron-right small me-2"></i>Kullanım Şartları
+                        </a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="#" class="text-white-50 text-decoration-none">
+                            <i class="bi bi-chevron-right small me-2"></i>S.S.S.
+                        </a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="#" class="text-white-50 text-decoration-none">
+                            <i class="bi bi-chevron-right small me-2"></i>İletişim
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- İletişim Bilgileri -->
+            <div class="col-lg-4 col-md-6">
+                <h6 class="text-uppercase fw-bold mb-4">İletişim</h6>
+                <p class="mb-2">
+                    <i class="bi bi-geo-alt-fill me-2"></i>
+                    Trakya Üniversitesi, Bilşim Sistemleri Ve Teknolojileri Öğrenci Topluluğu
+                </p>
+                <p class="mb-2">
+                    <i class="bi bi-envelope-fill me-2"></i>
+                    <a href="mailto:info@bstakademi.com" class="text-white-50 text-decoration-none">bst.akademi@outlook.com</a>
+                </p>
+            </div>
+        </div>
+        
+        <!-- Alt Footer - Telif Hakkı -->
+        <div class="row mt-4 pt-4 border-top border-secondary">
+            <div class="col-md-6 text-center text-md-start">
+                <p class="mb-0 text-white-50">© 2024 <strong>BST Akademi</strong>. Tüm hakları saklıdır.</p>
+            </div>
+            <div class="col-md-6 text-center text-md-end">
+                <a href="#" class="btn btn-sm btn-outline-light rounded-circle" id="back-to-top" title="Yukarı Çık">
+                    <i class="bi bi-arrow-up"></i>
+                </a>
+            </div>
+        </div>
+    </div>
 </footer>
+
+<style>
+.footer {
+    box-shadow: 0 -5px 15px rgba(0,0,0,0.1);
+}
+.social-icon {
+    font-size: 1.25rem;
+    transition: all 0.3s;
+}
+.social-icon:hover {
+    color: white !important;
+    transform: translateY(-3px);
+}
+#back-to-top {
+    width: 38px;
+    height: 38px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+}
+#back-to-top:hover {
+    background-color: white;
+    color: #212529;
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Yukarı çık butonu
+    const backToTopBtn = document.getElementById('back-to-top');
+    
+    backToTopBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        window.scrollTo({top: 0, behavior: 'smooth'});
+    });
+});
+</script>

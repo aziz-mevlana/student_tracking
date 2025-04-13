@@ -1,10 +1,149 @@
 {% load static %}
-<div class="list-group" style=" border-radius: 0px; background-color: #ffff; min-height: 100vh;">
-    {% for category in categories %}
-        {% if category.slug == selected_category %}
-            <a class="list-group-item list-group-item-action active " href="{% url 'graduates_by_category' category.slug %}">{{ category.name }}</a>
-        {% else %}
-            <a class="list-group-item list-group-item-action " href="{% url 'graduates_by_category' category.slug %}">{{ category.name }}</a>
+<div class="categories-container">
+    <!-- Tüm Kategoriler Butonu -->
+    <a href="{% url 'graduates' %}" class="category-item d-flex justify-content-between align-items-center mb-3 {% if not selected_category %}active{% endif %}">
+        <div class="d-flex align-items-center">
+            <div class="category-icon">
+                <i class="bi bi-people-fill"></i>
+            </div>
+            <span class="fw-bold">Tüm Mezunlar</span>
+        </div>
+        {% if graduate_counts %}
+        <span class="badge rounded-pill">{{ graduate_counts.total }}</span>
         {% endif %}
-    {% endfor %}
+    </a>
+    
+    <div class="category-divider">
+        <span>Bölümler</span>
+    </div>
+    
+    <!-- Kategori Listesi -->
+    <div class="category-list">
+        {% for category in categories %}
+        {% with category_count=graduate_counts|get_item:category.slug|default:"0" %}
+        <a href="{% url 'graduates_by_category' category.slug %}" class="category-item d-flex justify-content-between align-items-center {% if category.slug == selected_category %}active{% endif %}">
+            <div class="d-flex align-items-center">
+                <div class="category-icon">
+                    <i class="bi {% cycle 'bi-laptop' 'bi-code-slash' 'bi-cpu' 'bi-bar-chart-line' 'bi-diagram-3' 'bi-database' 'bi-globe' 'bi-gear-wide-connected' %}"></i>
+                </div>
+                <span>{{ category.name }}</span>
+            </div>
+            {% if graduate_counts %}
+            <span class="badge rounded-pill">{{ category_count }}</span>
+            {% endif %}
+        </a>
+        {% endwith %}
+        {% endfor %}
+    </div>
 </div>
+
+<style>
+.categories-container {
+    padding: 0.5rem;
+}
+.category-item {
+    display: block;
+    padding: 0.8rem 1rem;
+    color: #495057;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    margin-bottom: 0.25rem;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+.category-item:hover {
+    color: #3498db;
+    background-color: rgba(52, 152, 219, 0.08);
+}
+.category-item.active {
+    color: #3498db;
+    background-color: rgba(52, 152, 219, 0.1);
+    font-weight: 600;
+}
+.category-item.active::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 4px;
+    background: linear-gradient(135deg, #3498db, #2980b9);
+    border-radius: 0 4px 4px 0;
+}
+.category-icon {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(52, 152, 219, 0.1);
+    color: #3498db;
+    border-radius: 8px;
+    margin-right: 12px;
+    transition: all 0.3s ease;
+}
+.category-item:hover .category-icon {
+    background-color: rgba(52, 152, 219, 0.2);
+    transform: scale(1.05);
+}
+.category-item.active .category-icon {
+    background-color: #3498db;
+    color: white;
+}
+.category-list {
+    max-height: 70vh;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(52, 152, 219, 0.5) transparent;
+}
+.category-list::-webkit-scrollbar {
+    width: 5px;
+}
+.category-list::-webkit-scrollbar-thumb {
+    background-color: rgba(52, 152, 219, 0.5);
+    border-radius: 10px;
+}
+.category-list::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+.badge {
+    background-color: rgba(52, 152, 219, 0.1);
+    color: #3498db;
+    font-weight: 600;
+    padding: 0.4rem 0.6rem;
+    transition: all 0.2s ease;
+}
+.category-item:hover .badge {
+    background-color: #3498db;
+    color: white;
+}
+.category-item.active .badge {
+    background-color: #3498db;
+    color: white;
+}
+.category-divider {
+    display: flex;
+    align-items: center;
+    margin: 1rem 0;
+    color: #6c757d;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+}
+.category-divider::before,
+.category-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background-color: #e9ecef;
+}
+.category-divider::before {
+    margin-right: 0.5rem;
+}
+.category-divider::after {
+    margin-left: 0.5rem;
+}
+</style>

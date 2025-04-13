@@ -12,8 +12,8 @@
     <div class="row border rounded-5 p-3 bg-white shadow box-area">
         <!-- Sol Bölüm -->
         <div class="col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box" style="background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);">
-            <div class="featured-image mb-3">
-                <img src="{% static 'images/register-illustration.svg' %}" class="img-fluid" style="width: 250px;">
+            <div class="featured-icon mb-3">
+                <i class="bi bi-person-plus-fill text-white" style="font-size: 120px;"></i>
             </div>
             <p class="text-white fs-2 fw-bold">Aramıza Katılın</p>
             <p class="text-white text-wrap text-center px-3" style="max-width: 20rem;">Bilişim Sistemleri ve Teknolojileri topluluğumuza hoş geldiniz!</p>
@@ -34,15 +34,15 @@
                 </div>
 
                 <div class="input-group mb-3">
-                    <span class="input-group-text bg-light"><i class="bi bi-envelope"></i></span>
+                    <span class="input-group-text bg-light"><i class="bi bi-envelope-fill"></i></span>
                     <input type="email" class="form-control form-control-lg bg-light" placeholder="E-posta adresiniz" name="email" required>
                 </div>
                 <div class="input-group mb-3">
-                    <span class="input-group-text bg-light"><i class="bi bi-lock"></i></span>
+                    <span class="input-group-text bg-light"><i class="bi bi-lock-fill"></i></span>
                     <input type="password" class="form-control form-control-lg bg-light" placeholder="Şifreniz" name="password" required>
                 </div>
                 <div class="input-group mb-4">
-                    <span class="input-group-text bg-light"><i class="bi bi-lock-fill"></i></span>
+                    <span class="input-group-text bg-light"><i class="bi bi-shield-lock-fill"></i></span>
                     <input type="password" class="form-control form-control-lg bg-light" placeholder="Şifrenizi tekrar girin" name="repassword" required>
                 </div>
                 
@@ -56,7 +56,9 @@
                 </div>
                 
                 <div class="input-group mb-3">
-                    <button class="btn btn-primary w-100 py-3 fw-bold" type="submit">Kayıt Ol</button>
+                    <button class="btn btn-primary w-100 py-3 fw-bold" type="submit">
+                        <i class="bi bi-person-plus me-2"></i>Kayıt Ol
+                    </button>
                 </div>
                 <div class="text-center mt-3">
                     <small>Zaten hesabınız var mı? <a href="{% url 'login' %}" class="text-decoration-none fw-bold">Giriş Yapın</a></small>

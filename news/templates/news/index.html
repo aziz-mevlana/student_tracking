@@ -10,7 +10,6 @@
 {% block content %}
 
 {% include 'partials/_carousel.html' %}
-
 <div class="container my-5">
     <div class="row g-4">
         {% for new in news %}
@@ -20,6 +19,7 @@
         {% endfor %}
     </div>
 </div>
+{% include 'partials/_istatistik.html' %}
 
 
 {% endblock %}
